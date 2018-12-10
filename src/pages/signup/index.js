@@ -2,6 +2,7 @@ import React from 'react'
 import './index.less';
 import nh_ypt from '../../assets/img/nh_ypt.png';
 import {Link} from 'react-router-dom'
+import utils from '../../utils/utils'
 export default class SignUp extends React.Component {
     constructor(props){
         super(props)
@@ -10,6 +11,8 @@ export default class SignUp extends React.Component {
         this.inputBlur=this.inputBlur.bind(this);
         this.count=this.count.bind(this);
         this.sendCode=this.sendCode.bind(this);
+        this.signup=this.signup.bind(this);
+        this.check=this.check.bind(this);
     }
     state={
         znUserName:'',
@@ -23,8 +26,12 @@ export default class SignUp extends React.Component {
         znCode:'',
         btnText: '获取验证码',
         timer: 60,
-        discodeBtn: false,
-        errorInfo:''
+        agree:true,//是否勾选服务条款
+        timerBool:false,//是否获取验证码
+        disCodeBtn: false,//获取验证码之后禁止点击
+        zCBtn: false,//注册按钮是否可以点击
+        errorInfo:'',
+        btnContent:"注册"
     }
     componentDidMount() {
 
@@ -47,21 +54,120 @@ export default class SignUp extends React.Component {
             document.getElementById(id).style.bottom="6px"
         }
     }
+    signup() {
+        if (utils.trim(this.state.znUserName) == '') {
+            this.setState({
+                errorInfo: "账号不能为空！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znPassWord) == '') {
+            this.setState({
+                errorInfo: "密码不能为空！"
+            });
+            return;
+        }
+        if (this.state.znPassWord2!==this.state.znPassWord) {
+            this.setState({
+                errorInfo: "二次密码不一致！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znNickName) == '') {
+            this.setState({
+                errorInfo: "昵称不能为空！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znEmail) == '') {
+            this.setState({
+                errorInfo: "邮箱不能为空！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znName) == '') {
+            this.setState({
+                errorInfo: "联系人姓名不能为空！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znBirthday) == '') {
+            this.setState({
+                errorInfo: "出生日期不能为空！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znTelephone) == '') {
+            this.setState({
+                errorInfo: "联系人电话不能为空！"
+            });
+            return;
+        }
+
+        if (this.state.timerBool==false) {
+            this.setState({
+                errorInfo: "请先获取验证码！"
+            });
+            return;
+        }
+        if (this.state.agree==false) {
+            this.setState({
+                errorInfo: "请先同意暖虎平台隐私政策与服务条款！"
+            });
+            return;
+        }
+        if (utils.trim(this.state.znCode) == '') {
+            this.setState({
+                errorInfo: "验证码不能为空！"
+            });
+            return;
+        }
+
+        this.setState({
+            btnContent:'注册中...',
+            disCodeBtn: true,
+            zCBtn: true,
+            errorInfo: ""
+        })
+
+        // Axios.ajax({
+        //     url:'/Test.aspx',
+        //     data:{
+        //         isShowLoading:false,
+        //         params: {
+        //             userName: this.state.znUserNames,
+        //             password: this.state.znPassWords,
+        //             code:this.state.znCodes
+        //         }
+        //     }
+        // }).then((res)=>{
+        //
+        // }).catch((res)=>{
+        //     this.setState({
+        //         btnContent:'登录',
+        //         disCodeBtn: false,
+        //     })
+        // })
+    }
     count(){
+        this.setState({timerBool: true });
         let siv = setInterval(() => {
             var time=this.state.timer;
             time-=1;
             this.setState({timer: time, btnText:`(${this.state.timer})秒`}, () => {
                 if (this.state.timer === 0) {
                     clearInterval(siv);
-                    this.setState({ btnText: '重新发送', discodeBtn: false,timer:60 })
+                    this.setState({ btnText: '重新发送', disCodeBtn: false,timer:60 })
                 }
             });
         }, 1000);
     }
     sendCode(){
-        this.setState({ discodeBtn: true});
+        this.setState({ disCodeBtn: true});
         this.count()
+    }
+    check(e){
+        this.setState({agree:e.target.checked})
     }
     goHome(){
         window.location.href='/';
@@ -111,7 +217,7 @@ export default class SignUp extends React.Component {
                         </div>
                         <div className="form-group">
                             <input type="text" className="input" id="znBirthday"  onFocus={()=>{this.inputFocus("znBirthdayLabel")}} onBlur={()=>{this.inputBlur("znBirthdayLabel","znBirthday")}} onChange={(e)=>{this.inputChange(e,"znBirthday")}} defaultValue={this.state.znBirthday}/>
-                            <label htmlFor="znBirthday" id="znBirthdayLabel">用户邮箱</label>
+                            <label htmlFor="znBirthday" id="znBirthdayLabel">出生日期</label>
                         </div>
                         <div className="form-group form-group-mis">
                             <input type="text" className="input" id="znTelephone"  onFocus={()=>{this.inputFocus("znTelephoneLabel")}} onBlur={()=>{this.inputBlur("znTelephoneLabel","znTelephone")}} onChange={(e)=>{this.inputChange(e,"znTelephone")}} defaultValue={this.state.znTelephone}/>
@@ -120,15 +226,15 @@ export default class SignUp extends React.Component {
                         <div className="form-group form-group-mis form-group-min">
                             <input type="text" className="input" id="znCode"  onFocus={()=>{this.inputFocus("znCodeLabel")}} onBlur={()=>{this.inputBlur("znCodeLabel","znCode")}} onChange={(e)=>{this.inputChange(e,"znCode")}} defaultValue={this.state.znCode}/>
                             <label htmlFor="znCode" id="znCodeLabel">验证码</label>
-                            <input type="button" className="button" defaultValue={this.state.btnText} disabled={this.state.discodeBtn} onClick={this.sendCode} />
+                            <input type="button" className="button" defaultValue={this.state.btnText} disabled={this.state.disCodeBtn} onClick={this.sendCode} />
                         </div>
                         <div className="clear"></div>
 
                     </div>
                     <div className="info">{this.state.errorInfo}</div>
-                    <div className="btn">注册</div>
+                    <input type="button" className="btn" defaultValue={this.state.btnContent} disabled={this.state.zCBtn} onClick={this.signup}/>
                     <div className="agree">
-                        <input className="input" defaultChecked type="checkbox"/>
+                        <input className="input" defaultChecked={this.state.agree}  type="checkbox" onChange={(e)=>{this.check(e)}} />
                         我已阅读并同意暖虎平台
                         <a href="####">《隐私政策》</a>和
                         <a href="####">《服务条款》</a>
