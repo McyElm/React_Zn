@@ -161,7 +161,7 @@ class Home extends React.Component {
                             集中供热能效提升解决方案
                         </div>
                         <div className="content">
-                            整体解决方案不仅提供产品的销售， 还提供相关的技术服务
+                            “3133”智能热网企业级产品平台
                         </div>
                         <Link className="x_q"  to="/solutionEnergyEfficiency">查看详情</Link>
                     </div>
@@ -180,7 +180,7 @@ class Home extends React.Component {
                             物联网设备的热力数据托管服务
                         </div>
                         <div className="content">
-                            整体解决方案不仅提供产品的销售，还提供相关的技术服务
+                            提供智能供热整体解方案，不止于产品和服务
                         </div>
                         <a href="javascript:;" className="x_q">查看详情</a>
                     </div>
@@ -199,7 +199,7 @@ class Home extends React.Component {
                             企业级监管平台的热力数据托管服务
                         </div>
                         <div className="content">
-                            整体解决方案不仅提供产品的销售，还提供相关的技术服务
+                            提供智能供热整体解方案，不止于产品和服务
                         </div>
                         <a href="javascript:;" className="x_q">查看详情</a>
                     </div>
@@ -218,7 +218,7 @@ class Home extends React.Component {
                             暖虎服务队
                         </div>
                         <div className="content">
-                            整体解决方案不仅提供产品的销售，还提供相关的技术服务
+                            提供智能供热整体解方案，不止于产品和服务
                         </div>
                         <a href="javascript:;" className="x_q">查看详情</a>
                     </div>

@@ -49,10 +49,23 @@ class Jone extends React.Component {
                         <div className="item">
                             <img className="" src={m02} alt=""/>
                             <p className="">供热能效</p>
-                            <div className="des des2">热源：供热量、耗煤量、耗电量、热效率、耗水量、设备能效等
-                                热力站：耗热量、耗电量、耗水量、设备能效等
-                                管网：输热效率、水力平衡等
-                                建筑物：热指标、属性、供热方式等
+                            <div className="des des2">
+                                <div className="lev1">
+                                    <div className="m">热&nbsp;&nbsp;&nbsp;源：</div>
+                                    <div className="c">供热量、耗煤量、耗电量、热效率、耗水量、设备能效等</div>
+                                </div>
+                                <div className="lev1">
+                                    <div className="m">热力站：</div>
+                                    <div className="c">耗热量、耗电量、耗水量、设备能效等</div>
+                                </div>
+                                <div className="lev1">
+                                    <div className="m">管&nbsp;&nbsp;&nbsp;网：</div>
+                                    <div className="c">输热效率、水力平衡等</div>
+                                </div>
+                                <div className="lev1">
+                                    <div className="m">建筑物：</div>
+                                    <div className="c">热指标、属性、供热方式等</div>
+                                </div>
                             </div>
                         </div>
                         <div className="item">
