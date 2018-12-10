@@ -1,0 +1,140 @@
+@import './../../style/default.less';
+.SignIn-wrap {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/img/signupbg.png");
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: cover;
+  min-width: 1200px;
+  overflow: hidden;
+  .container {
+    width: 575px;
+    height: 526px;
+    box-shadow: 0 0 20px #e4e4e4;
+    margin:166px auto 0;
+    border-radius: 8px;
+    background-color: white;
+    .logo {
+      text-align: center;
+      padding-top: 25px;
+      cursor: pointer;
+    }
+  }
+  .box {
+    padding-left: 83px;
+    font-size: @fontL;
+    margin-top: 70px;
+    .form-group {
+      font-size: @fontK;
+      position: relative;
+      width: 414px;
+      border-bottom: 2px solid #e4e4e4;
+      height: 55px;
+      .input {
+        width: 100%;
+        border: 0;
+        outline: none;
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        height: 24px;
+        line-height: 24px;
+        background-color: transparent;
+        font-size: @fontK;
+        padding-right: 20px;
+        z-index: 10;
+        &:focus + label {
+          color: @colorA;
+        }
+      }
+      label {
+        position: absolute;
+        bottom: 6px;
+        left: 0;
+        color: #a3afb7;
+        transition: all 0.3s ease 0s;
+        //cursor: text;
+      }
+    }
+    .form-group-mis {
+      width: 325px;
+      float: left;
+    }
+    .form-group-min {
+      width: 90px;
+      float: left;
+      img {
+        width: 90px;
+        height: 30px;
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+    }
+  }
+  .clear {
+    clear: both;
+  }
+  .info {
+    width: 414px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 0 0 83px;
+    color: red;
+    text-align: center;
+    font-size: @fontK;
+  }
+  .w_z {
+    width: 387px;
+    margin: 30px auto;
+    overflow: hidden;
+
+    .a1 {
+      padding-left: 10px;
+      float: left;
+      color: @colorA;
+      font-size: 13px;
+    }
+    .a2 {
+      float: right;
+      color: @colorA;
+      font-size: 13px;
+    }
+  }
+  .btn {
+    width: 414px;
+    height: 47px;
+    line-height: 47px;
+    background-color: @colorA;
+    text-align: center;
+    color: @colorM;
+    font-size: @fontI;
+    clear: both;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0 0 0 83px;
+    border: none;
+    outline: none;
+  }
+  .agree {
+    margin-left: 93px;
+    margin-top: 37px;
+    font-size: 14px;
+    .input {
+      //width: 18px;
+      //height: 18px;
+      vertical-align: text-bottom;
+    }
+    a {
+      color: @colorA;
+    }
+  }
+  .b_a{
+    width: 440px;
+    text-align: center;
+    margin: 175px auto auto;
+    font-size: 16px;
+  }
+}
