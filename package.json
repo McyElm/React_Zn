@@ -1,7 +1,7 @@
 {
   "proxy": "http://localhost:19201",
   "name": "test",
-  "version": "1.0.0",
+  "version": "1.0.0 ",
   "private": true,
   "dependencies": {
     "@babel/core": "7.1.0",
