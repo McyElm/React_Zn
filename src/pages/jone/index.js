@@ -43,15 +43,22 @@ class Jone extends React.Component {
                     <div className="box">
                         <div className="item">
                             <img className="" src={m01} alt=""/>
-                            <p className="">供热能效</p>
+                            <p className="">供热质量</p>
+                            <div className="des des2">平均室温、室温合格率、有效投诉率、维修满意率</div>
                         </div>
                         <div className="item">
                             <img className="" src={m02} alt=""/>
                             <p className="">供热能效</p>
+                            <div className="des des2">热源：供热量、耗煤量、耗电量、热效率、耗水量、设备能效等
+                                热力站：耗热量、耗电量、耗水量、设备能效等
+                                管网：输热效率、水力平衡等
+                                建筑物：热指标、属性、供热方式等
+                            </div>
                         </div>
                         <div className="item">
                             <img className="" src={m03} alt=""/>
-                            <p className="">供热能效</p>
+                            <p className="">供热安全</p>
+                            <div className="des des2">可靠性、故障率、故障时间</div>
                         </div>
                     </div>
                 </div>
