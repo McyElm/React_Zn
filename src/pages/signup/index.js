@@ -118,9 +118,9 @@ export default class SignUp extends React.Component {
     signup() {
         var username = /^[a-zA-Z0-9]{6,16}$/;
         var password = /^[a-zA-Z0-9]{6,16}$/;
-        var nickname = /^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$/;
+        var nickname = /^[\u4e00-\u9fa5a-zA-Z0-9]{3,16}$/;
         var email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
-        var name = /^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$/;
+        var name = /^[\u4e00-\u9fa5a-zA-Z0-9]{2,8}$/;
         var phone = /^[0-9]{1,16}$/;
         if (utils.trim(this.state.znUserName) == '') {
             this.setState({
@@ -189,7 +189,7 @@ export default class SignUp extends React.Component {
         }
         if (!name.test(utils.trim(this.state.znName))) {
             this.setState({
-                errorInfo: "联系人支持大小写字母汉字和数字，长度范围：3-16位"
+                errorInfo: "联系人支持大小写字母汉字和数字，长度范围：2-8位"
             });
             return;
         }
