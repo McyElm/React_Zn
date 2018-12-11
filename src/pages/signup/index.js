@@ -37,20 +37,60 @@ export default class SignUp extends React.Component {
     }
 
     componentDidMount() {
-        var that=this;
+        var that = this;
         laydate.render({
             elem: '#znBirthday', //指定元素
-            max:'date'
+            max: 'date'
             , done: function (value, date, endDate) {
                 var data = document.getElementById("znBirthday").value;
-                if (data) {
+                if (data||value) {
                     document.getElementById("znBirthdayLabel").style.bottom = "35px"
-                } else {
+                    that.setState({
+                        znBirthday: data
+                    })
+                }else{
                     document.getElementById("znBirthdayLabel").style.bottom = "6px"
+                    that.setState({
+                        znBirthday: data
+                    })
                 }
-                that.setState({
-                    znBirthday:data
-                })
+                if (value) {
+                    document.getElementById("znBirthdayLabel").style.bottom = "35px"
+                    that.setState({
+                        znBirthday: value
+                    })
+                }else{
+                    document.getElementById("znBirthdayLabel").style.bottom = "6px"
+                    that.setState({
+                        znBirthday: value
+                    })
+                }
+            },
+            change: function (value, date, endDate) {
+                var data = document.getElementById("znBirthday").value;
+                if (data||value) {
+                    document.getElementById("znBirthdayLabel").style.bottom = "35px"
+                    that.setState({
+                        znBirthday: data
+                    })
+                }else{
+                    document.getElementById("znBirthdayLabel").style.bottom = "6px"
+                    that.setState({
+                        znBirthday: data
+                    })
+                }
+                if (value) {
+                    document.getElementById("znBirthdayLabel").style.bottom = "35px"
+                    that.setState({
+                        znBirthday: value
+                    })
+                }else{
+                    document.getElementById("znBirthdayLabel").style.bottom = "6px"
+                    that.setState({
+                        znBirthday: value
+                    })
+                }
+
             }
         });
     }
@@ -220,7 +260,20 @@ export default class SignUp extends React.Component {
     }
 
     count() {
-        this.setState({timerBool: true});
+        var phone = /^[0-9]{1,16}$/;
+        if (utils.trim(this.state.znTelephone) == '') {
+            this.setState({
+                errorInfo: "联系人电话不能为空！"
+            });
+            return;
+        }
+        if (!phone.test(utils.trim(this.state.znTelephone))) {
+            this.setState({
+                errorInfo: "联系电话只能是数字，长度不能超过16位"
+            });
+            return;
+        }
+        this.setState({timerBool: true,disCodeBtn: true});
         let siv = setInterval(() => {
             var time = this.state.timer;
             time -= 1;
@@ -234,7 +287,7 @@ export default class SignUp extends React.Component {
     }
 
     sendCode() {
-        this.setState({disCodeBtn: true});
+
         this.count()
     }
 
