@@ -119,9 +119,9 @@ export default class SignUp extends React.Component {
     signup() {
         var username = /^[a-zA-Z0-9]{6,16}$/;
         var password = /^[a-zA-Z0-9]{6,16}$/;
-        var nickname = /^.{3,16}$/;
+        var nickname = /^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$/;
         var email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
-        var name = /^.{2,8}$/;
+        var name = /^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$/;
         var phone = /^[0-9]{1,16}$/;
         if (utils.trim(this.state.znUserName) == '') {
             this.setState({
@@ -165,7 +165,7 @@ export default class SignUp extends React.Component {
         }
         if (!nickname.test(utils.trim(this.state.znNickName))) {
             this.setState({
-                errorInfo: "用户昵称长度范围：3-16位"
+                errorInfo: "用户昵称支持大小写字母汉字和数字，长度范围：3-16位"
             });
             return;
         }
@@ -190,7 +190,7 @@ export default class SignUp extends React.Component {
         }
         if (!name.test(utils.trim(this.state.znName))) {
             this.setState({
-                errorInfo: "联系人长度范围：2-8位！"
+                errorInfo: "联系人支持大小写字母汉字和数字，长度范围：3-16位"
             });
             return;
         }
@@ -330,7 +330,7 @@ export default class SignUp extends React.Component {
                             }} onChange={(e) => {
                                 this.inputChange(e, "znUserName")
                             }} defaultValue={this.state.znUserName}/>
-                            <label htmlFor="znUserName" id="znUserNameLabel">用户账号</label>
+                            <label htmlFor="znUserName" id="znUserNameLabel">用户账号&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母和数字，长度范围：6-16位</label>
                         </div>
                         <div className="form-group">
                             <input type="passWord" className="input" id="znPassWord" onFocus={() => {
@@ -340,7 +340,7 @@ export default class SignUp extends React.Component {
                             }} onChange={(e) => {
                                 this.inputChange(e, "znPassWord")
                             }} defaultValue={this.state.znPassWord}/>
-                            <label htmlFor="znPassWord" id="znPassWordLabel">用户密码</label>
+                            <label htmlFor="znPassWord" id="znPassWordLabel">用户密码&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母和数字，长度范围：6-16位</label>
                         </div>
                         <div className="form-group">
                             <input type="passWord" className="input" id="znPassWord2" onFocus={() => {
@@ -360,7 +360,7 @@ export default class SignUp extends React.Component {
                             }} onChange={(e) => {
                                 this.inputChange(e, "znNickName")
                             }} defaultValue={this.state.znNickName}/>
-                            <label htmlFor="znNickName" id="znNickNameLabel">用户昵称</label>
+                            <label htmlFor="znNickName" id="znNickNameLabel">用户昵称&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母汉字和数字，长度范围：3-16位</label>
                         </div>
                         <div className="form-group">
                             <input type="email" className="input" id="znEmail" onFocus={() => {
@@ -380,10 +380,10 @@ export default class SignUp extends React.Component {
                             }} onChange={(e) => {
                                 this.inputChange(e, "znName")
                             }} defaultValue={this.state.znName}/>
-                            <label htmlFor="znName" id="znNameLabel">联系人姓名</label>
+                            <label htmlFor="znName" id="znNameLabel">联系人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母汉字和数字，长度范围：2-8位</label>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="input" id="znBirthday" onFocus={() => {
+                            <input type="text" readOnly="readOnly" className="input" id="znBirthday" onFocus={() => {
                                 this.inputFocus("znBirthdayLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znBirthdayLabel", "znBirthday")
