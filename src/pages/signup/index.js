@@ -10,7 +10,6 @@ export default class SignUp extends React.Component {
         this.inputChange = this.inputChange.bind(this);
         this.inputFocus = this.inputFocus.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
-        this.count = this.count.bind(this);
         this.sendCode = this.sendCode.bind(this);
         this.signup = this.signup.bind(this);
         this.check = this.check.bind(this);
@@ -258,8 +257,7 @@ export default class SignUp extends React.Component {
         //     })
         // })
     }
-
-    count() {
+    sendCode() {
         var phone = /^[0-9]{1,16}$/;
         if (utils.trim(this.state.znTelephone) == '') {
             this.setState({
@@ -284,25 +282,11 @@ export default class SignUp extends React.Component {
                 }
             });
         }, 1000);
+
     }
-
-    sendCode() {
-
-        this.count()
-    }
-
     check(e) {
         this.setState({agree: e.target.checked})
     }
-
-    goHome() {
-        window.location.href = '/';
-    }
-
-    onChange(date, dateString) {
-        console.log(date, dateString);
-    }
-
     render() {
         return (
             <div className="SignUp-wrap">
@@ -323,8 +307,8 @@ export default class SignUp extends React.Component {
                             <label htmlFor="agent">代理商</label>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="input" id="znUserName" onFocus={() => {
-                                this.inputFocus("znUserNameLabel")
+                            <input type="text" className="input" id="znUserName" onFocus={(e) => {
+                                this.inputFocus("znUserNameLabel",e)
                             }} onBlur={() => {
                                 this.inputBlur("znUserNameLabel", "znUserName")
                             }} onChange={(e) => {
