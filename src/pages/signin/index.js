@@ -23,7 +23,7 @@ class SignIn extends React.Component {
         errorInfo: utils.getQueryString("errorInfo"),
         discodeBtn: false,
         btnContent:'登录',
-        znUrl:window.location.href
+        znUrl:window.location.href.split("?")[0]
     };
 
     componentDidMount() {

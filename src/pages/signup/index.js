@@ -134,11 +134,9 @@ export default class SignUp extends React.Component {
             });
             return;
         }
-
-
         if (utils.trim(this.state.znPassWord) == '') {
             this.setState({
-                errorInfo: "密码不能为空！"
+                errorInfo: "密码不能为空"
             });
             return;
         }
@@ -261,7 +259,7 @@ export default class SignUp extends React.Component {
         var phone = /^[0-9]{1,16}$/;
         if (utils.trim(this.state.znTelephone) == '') {
             this.setState({
-                errorInfo: "联系人电话不能为空！"
+                errorInfo: "联系人电话不能为空"
             });
             return;
         }
