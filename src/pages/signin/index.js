@@ -16,6 +16,7 @@ class SignIn extends React.Component {
         this.inputBlur = this.inputBlur.bind(this);
         this.signin = this.signin.bind(this);
         this.imgCodeChange = this.imgCodeChange.bind(this);
+        this.codeChange = this.codeChange.bind(this);
     }
     state = {
         znUserNames:"",
@@ -33,22 +34,9 @@ class SignIn extends React.Component {
     componentDidMount() {
         this.initValue();
         var uuid=utils.uuid();
-        Axios.ajax({
-            url:'http://192.168.100.19:9000/SSOService.asmx/GenerateVerifyImage',
-            type:'post',
-            data:{
-                isShowLoading:false,
-                params: {
-                    guid: uuid,
-                    nlens: 4
-                }
-            }
-        }).then((res)=>{
-            this.setState({imgCode:res.Data,guid:uuid})
-        }).catch((res)=>{
-        })
+        // this.codeChange()
     }
-    imgCodeChange(){
+    codeChange(){
         Axios.ajax({
             url:'http://192.168.100.19:9000/SSOService.asmx/ModifyVerifyImage',
             type:'post',
@@ -63,6 +51,9 @@ class SignIn extends React.Component {
             this.setState({imgCode:res.Data+"?"+utils.uuid()})
         }).catch((res)=>{
         })
+    }
+    imgCodeChange(){
+       // this.codeChange()
     }
     signin() {
         if (utils.trim(this.state.znUserNames) == '') {

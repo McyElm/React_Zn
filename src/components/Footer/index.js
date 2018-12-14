@@ -11,7 +11,7 @@ export default class Footer extends React.Component {
                             <p>帮助中心</p>
                             <p>服务条款</p>
                             <p>隐私条款</p>
-                            <p>联系我们</p>
+                            <p>关于我们</p>
                         </div>
                         <div className="cy">
                             <h2>参与暖虎云平台设计建议留言</h2>
