@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 import App from './App'
 import Admin from './admin'
 import Jone from './pages/jone';
@@ -10,7 +10,7 @@ import Iscada from './pages/iscada';
 export default class ERouter extends React.Component{
     render(){
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <App>
                     <Switch>
                         <Route path="/signUp" component={SignUp}/>
@@ -27,7 +27,7 @@ export default class ERouter extends React.Component{
                         } />
                     </Switch>
                 </App>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

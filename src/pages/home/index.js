@@ -49,6 +49,7 @@ class Home extends React.Component {
             slidesPerView: 3,
             centeredSlides: true,
             loopAdditionalSlides: 3,
+            preventLinks : false,
             tdFlow: {
                 rotate: 0,
                 depth: 110,
@@ -89,7 +90,7 @@ class Home extends React.Component {
                                 <ul className="menu">
                                     <a   to="/">智能调节阀管理平台</a>
                                     <a   to="/">室温采集分析平台 <span>&lt;建设中 &gt;</span></a>
-                                    <Link   to="/Iscada">智能供热iSCADA平台</Link>
+                                    <a   to="/">智能供热iSCADA平台<span>&lt;敬请期待 &gt;</span></a>
                                 </ul>
                             </li>
                             <li data-index="3" className="li">
@@ -308,7 +309,7 @@ class Home extends React.Component {
                                     <div className="">
                                         智能供热iSCADA平台
                                     </div>
-                                    <a href="javascript:;" className="swiper-slide-a">了解详情</a>
+                                    <Link to="/iscada" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-1">
@@ -335,7 +336,7 @@ class Home extends React.Component {
                                     <div className="">
                                         智能供热iSCADA平台
                                     </div>
-                                    <a href="javascript:;" className="swiper-slide-a">了解详情</a>
+                                    <Link to="/iscada" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
 

@@ -64,7 +64,7 @@ class Iscada extends React.Component {
                             </div>
                         </div>
                         <div className="right right_min">
-                            <p>智能调度功能</p>
+                            {/*<p>智能调度功能</p>*/}
                             <ul>
                                 <li>
                                     <span className="count">1</span>
