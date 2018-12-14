@@ -1,6 +1,6 @@
 @import './../../style/default.less';
 
-.Jone-wrap {
+.Iscada-wrap {
   background-color: @colorM;
   padding-top: 70px;
   .banner {
@@ -66,13 +66,20 @@
       font-size: @fontF;
       color: @colorU;
     }
+    .j_f_t_text2{
+      margin-left: 0;
+      color: @colorA;
+      padding-bottom: 50px;
+      padding-top: 20px;
+    }
   }
   .m_q {
     width: 1200px;
-    margin: 45px auto 25px;
+    margin: 45px auto 0px;
+    padding-bottom: 12px;
     .box {
       width: 1200px;
-      margin-top: 75px;
+      margin-top: 45px;
       overflow: hidden;
       .item {
         float: left;
@@ -123,9 +130,44 @@
         }
       }
       .left {
-        padding-left: 140px;
-        width: 600px;
+        width: 730px;
         float: left;
+      }
+      .left_min{
+        width: 615px;
+      }
+      .text{
+        line-height: 40px;
+        color: @colorF;
+      }
+      .text2{
+        padding-top: 10px;
+        line-height: 32px;
+        font-size: 17px;
+        color: #787878;
+        width: 442px;
+      }
+      .text3{
+        padding-top: 10px;
+        line-height: 32px;
+        font-size: 17px;
+        color: #787878;
+        width: 440px;
+      }
+      .img_box{
+        margin-left: 66px;
+      }
+      .img_box2{
+        margin-left: 180px;
+      }
+      .img_box3{
+        margin-top: 30px;
+      }
+      .img_box_left{
+        margin-left: 330px;
+      }
+      .img_box_left_min{
+        margin-top: 40px;
       }
       .cy_left{
         padding-left: 34px;
@@ -138,7 +180,9 @@
       .titie {
         font-size: @fontF;
         color: @colorA;
-        margin-top: 20px;
+        margin-top: 30px;
+        text-align: center;
+        width: 281px;
       }
       .right {
         width: 460px;
@@ -150,6 +194,10 @@
           font-weight: 600;
           margin-bottom: 12px;
         }
+        .left_p{
+          padding-left: 0;
+        }
+
         h6{
           padding-left: 50px;
           font-size: @fontK;
@@ -161,11 +209,12 @@
             font-size: @fontF;
           li{
             color: @colorF;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             .text{
               font-size: @fontI;
-              color: @colorF;
+              color: #787878;
             }
+
             .count{
               display: inline-block;
               width: 50px;
@@ -177,6 +226,23 @@
         }
 
       }
+      .right_min{
+        padding-top: 23px;
+        ul{
+          li{
+            margin-bottom: 0px;
+          }
+        }
+      }
+      .h2{
+        font-size: 22px;
+        font-weight: 600;
+        color: @colorT;
+        padding-top: 12px;
+      }
+      .h3{
+        padding-top: 0px;
+      }
       .js_right{
         width: 795px;
         font-size: @fontG;
@@ -187,5 +253,20 @@
     .box2{
       margin-top: -8px;
     }
+  }
+  .m_q_p{
+    padding-top: 10px;
+  }
+  .m_q_b{
+    margin-bottom: 180px;
+  }
+  .m_q_f{
+    margin-bottom: 120px;
+  }
+  .m_q_g{
+    margin-bottom: 140px;
+  }
+  .m_q_b:last-child{
+    margin-bottom: 0px;
   }
 }

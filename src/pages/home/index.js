@@ -89,7 +89,7 @@ class Home extends React.Component {
                                 <ul className="menu">
                                     <a   to="/">智能调节阀管理平台</a>
                                     <a   to="/">室温采集分析平台 <span>&lt;建设中 &gt;</span></a>
-                                    <a   to="/">智能供热iSCADA平台<span>&lt;敬请期待 &gt;</span></a>
+                                    <Link   to="/Iscada">智能供热iSCADA平台</Link>
                                 </ul>
                             </li>
                             <li data-index="3" className="li">

@@ -8,12 +8,30 @@ export default class Axios {
             loading.style.display = 'block';
         }
         return new Promise((resolve,reject)=>{
+            var dataType=null;
+            var methodType=null;
+            if(options.type&&options.type.toLowerCase()=="post"){
+                dataType="data";
+                methodType="post";
+            }else{
+                dataType="params";
+                methodType="get";
+            }
+            if(options.type && options.type.toLowerCase()=="post"&&options.data && options.data.params){
+                axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+                var params = new URLSearchParams();
+                for (const key in options.data.params) {
+                    if (options.data.params[key]!== undefined && Object.hasOwnProperty.call(options.data.params, key)) {
+                        params.append(key, options.data.params[key]);
+                    }
+                }
+                options.data.params=params;
+            }
             axios({
                 url:options.url,
-                method:'get',
-                // baseURL:'http://192.168.152.1:19201',
+                method:methodType,
                 timeout:60000,
-                params: (options.data && options.data.params) || ''
+                [dataType]: (options.data && options.data.params) || ''
             }).then((response)=>{
                 if (options.data && options.data.isShowLoading !== false) {
                     loading = document.getElementById('ajaxLoading');
@@ -21,7 +39,7 @@ export default class Axios {
                 }
                 if (response.status == '200'){
                     let res = response.data;
-                    if (res.code == '0'){
+                    if (res.code == '0'||res.code == 0){
                         resolve(res);
                     }else{
                         Modal.info({

@@ -15,21 +15,55 @@ class SignIn extends React.Component {
         this.inputFocus = this.inputFocus.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
         this.signin = this.signin.bind(this);
+        this.imgCodeChange = this.imgCodeChange.bind(this);
     }
     state = {
-        znUserNames: utils.getQueryString("znUserNames"),
-        znPassWords: utils.getQueryString("znPassWords"),
-        znCodes: utils.getQueryString("znCodes"),
-        errorInfo: utils.getQueryString("errorInfo"),
+        znUserNames:"",
+        znPassWords: "",
+        znCodes: "",
+        errorInfo: "",
         discodeBtn: false,
         btnContent:'登录',
-        znUrl:window.location.href.split("?")[0]
+        znUrl:window.location.href.split("?")[0],
+        type:1,
+        imgCode:'',
+        guid:''
     };
 
     componentDidMount() {
-        this.initValue()
+        this.initValue();
+        var uuid=utils.uuid();
+        Axios.ajax({
+            url:'http://192.168.100.19:9000/SSOService.asmx/GenerateVerifyImage',
+            type:'post',
+            data:{
+                isShowLoading:false,
+                params: {
+                    guid: uuid,
+                    nlens: 4
+                }
+            }
+        }).then((res)=>{
+            this.setState({imgCode:res.Data,guid:uuid})
+        }).catch((res)=>{
+        })
     }
-
+    imgCodeChange(){
+        Axios.ajax({
+            url:'http://192.168.100.19:9000/SSOService.asmx/ModifyVerifyImage',
+            type:'post',
+            data:{
+                isShowLoading:false,
+                params: {
+                    guid: this.state.guid,
+                    nlens: 4
+                }
+            }
+        }).then((res)=>{
+            this.setState({imgCode:res.Data+"?"+utils.uuid()})
+        }).catch((res)=>{
+        })
+    }
     signin() {
         if (utils.trim(this.state.znUserNames) == '') {
             this.setState({
@@ -75,24 +109,7 @@ class SignIn extends React.Component {
         form.action = baseUrl+'/Test.aspx';
         form.submit();
         document.body.removeChild(form);
-        // Axios.ajax({
-        //     url:'/Test.aspx',
-        //     data:{
-        //         isShowLoading:false,
-        //         params: {
-        //             userName: this.state.znUserNames,
-        //             password: this.state.znPassWords,
-        //             code:this.state.znCodes
-        //         }
-        //     }
-        // }).then((res)=>{
-        //
-        // }).catch((res)=>{
-        //     this.setState({
-        //         btnContent:'登录',
-        //         discodeBtn: false,
-        //     })
-        // })
+
     }
     inputChange(e, type) {
         var value = e.target.value;
@@ -174,7 +191,7 @@ class SignIn extends React.Component {
                                 className="iconfont icon-yanzhengma2"> </span>验证码</label>
                         </div>
                         <div className="form-group form-group-min">
-                            <img src={nh_ypt} alt=""/>
+                            <img src={this.state.imgCode} onClick={this.imgCodeChange} alt=""/>
                         </div>
                         <div className="clear"></div>
                     </div>

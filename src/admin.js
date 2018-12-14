@@ -10,9 +10,7 @@ class Admin extends React.Component{
             <div className="main_wrap">
                 <Header></Header>
                 {this.props.children}
-                {
-                    this.props.userInfo.isLogIn==false? <Footerregister></Footerregister>:''
-                }
+                {this.props.userInfo.isLogIn==false? <Footerregister></Footerregister>:''}
                 <Footer></Footer>
             </div>
         );
