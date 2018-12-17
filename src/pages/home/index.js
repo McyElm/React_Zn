@@ -88,7 +88,7 @@ class Home extends React.Component {
                             <li data-index="2" className="li">
                                 应用平台
                                 <ul className="menu">
-                                    <a   to="/">智能调节阀管理平台</a>
+                                    <a   href="http://113.4.132.19:8991" target="frameZn">智能调节阀管理平台</a>
                                     <a   to="/">室温采集分析平台 <span>&lt;建设中 &gt;</span></a>
                                     <a   to="/">智能供热iSCADA平台<span>&lt;敬请期待 &gt;</span></a>
                                 </ul>
@@ -97,7 +97,7 @@ class Home extends React.Component {
                                 服务工具
                                 <ul className="menu">
                                     <a   to="/">热力管网水力平衡计算分析软件</a>
-                                    <a   to="/">枝状管网水力平衡计算软件</a>
+                                    <a   href="http://113.4.132.19:8078" target="frameZz">枝状管网水力平衡计算软件</a>
                                     <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
@@ -106,9 +106,10 @@ class Home extends React.Component {
                                 解决方案
                                 <ul className="menu">
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
+                                    <Link   to="/serviceTeam">暖虎服务队</Link>
+                                    <Link   to="/accountManagement">暖虎平台账号管理</Link>
                                     <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
                                     <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
-                                    <a   to="/">暖虎服务队</a>
                                 </ul>
                             </li>
                             <li data-index="5" className="li bz">帮助中心</li>
@@ -221,7 +222,7 @@ class Home extends React.Component {
                         <div className="content">
                             提供智能供热整体解方案，不止于产品和服务
                         </div>
-                        <a href="javascript:;" className="x_q">查看详情</a>
+                        <Link to="/serviceTeam" className="x_q">查看详情</Link>
                     </div>
                 </div>
                 <div className="j_f">
@@ -309,7 +310,7 @@ class Home extends React.Component {
                                     <div className="">
                                         智能供热iSCADA平台
                                     </div>
-                                    <Link to="/iscada" className="swiper-slide-a">了解详情</Link>
+                                    <Link to="/isCaDa" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-1">

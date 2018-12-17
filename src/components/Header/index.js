@@ -39,7 +39,7 @@ class Header extends React.Component{
                                 <div className="border"></div>
                                 应用平台
                                 <ul className="menu">
-                                    <a   to="/">智能调节阀管理平台</a>
+                                    <a   href="http://113.4.132.19:8991" target="frameZn">智能调节阀管理平台</a>
                                     <a   to="/">室温采集分析平台 <span>&lt;建设中 &gt;</span></a>
                                     <a   to="/">智能供热iSCADA平台<span>&lt;敬请期待 &gt;</span></a>
                                 </ul>
@@ -49,7 +49,7 @@ class Header extends React.Component{
                                 服务工具
                                 <ul className="menu">
                                     <a   to="/">热力管网水力平衡计算分析软件</a>
-                                    <a   to="/">枝状管网水力平衡计算软件</a>
+                                    <a   href="http://113.4.132.19:8078" target="frameZz">枝状管网水力平衡计算软件</a>
                                     <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
@@ -59,9 +59,10 @@ class Header extends React.Component{
                                 解决方案
                                 <ul className="menu">
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
+                                    <Link   to="/serviceTeam">暖虎服务队</Link>
+                                    <Link   to="/accountManagement">暖虎平台账号管理</Link>
                                     <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
                                     <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
-                                    <a   to="/">暖虎服务队</a>
                                 </ul>
                             </li>
                             <li  data-index="5" className={["li bz border", "5"===this.props.menuIndex?"active":null].join(' ')}>
