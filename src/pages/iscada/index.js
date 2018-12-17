@@ -25,7 +25,7 @@ class Iscada extends React.Component {
                         <div  className="left">
                             <h2>智能供热iSCADA平台</h2>
                             <p>智能供热iSCADA平台核心关注热网的供热质量、供热能效和供 <br/> 热安全</p>
-                            <a href="####">了解相关产品</a>
+                            <a href="javascript:;">了解相关产品</a>
                         </div>
                         <div className="right">
                             <img src={banner} alt=""/>

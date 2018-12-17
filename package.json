@@ -78,7 +78,7 @@
     "not ie <= 10",
     "not op_mini all"
   ],
-  "homepage": "./",
+  "homepage": "/",
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.1",

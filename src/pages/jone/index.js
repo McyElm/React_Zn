@@ -28,7 +28,7 @@ class Jone extends React.Component {
                         <div  className="left">
                             <h2>集中供热能效提升解决方案</h2>
                             <p>根据我们的实践经验总结，对集中供热的热网系统进行能效提升 <br/> 改造应采用如下过程实施</p>
-                            <a href="####">了解相关产品</a>
+                            <a href="javascript:;">了解相关产品</a>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>
