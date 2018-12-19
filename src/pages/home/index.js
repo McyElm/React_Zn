@@ -3,6 +3,7 @@ import Swiper from 'swiper';
 import 'swiper/dist/idangerous.swiper.css';
 import '../../assets/css/swiper3d.css';
 import './index.less';
+import Axios from '../../axios'
 import nh_ypt from '../../assets/img/nh_ypt.png';
 import ljnw from '../../assets/img/ljnw.png';
 import {connect} from 'react-redux'
@@ -13,9 +14,28 @@ class Home extends React.Component {
         super(props);
         this.handleScroll = this.handleScroll.bind(this);
         this.LogOut = this.LogOut.bind(this);
+        this.getList = this.getList.bind(this);
         this.state = {
             item: []
         }
+    }
+    getList(){
+        Axios.ajax({
+            url:'http://192.168.100.19:9000/SSOService.asmx/GetArticleList',
+            type:'post',
+            data:{
+                isShowLoading:false,
+                params: {
+                    cnt: 10
+                }
+            }
+        }).then((res)=>{
+            console.log(res);
+            this.setState({
+                item:res.Data
+            })
+        }).catch((res)=>{
+        })
     }
     handleScroll() {
         var top = document.documentElement.scrollTop || document.body.scrollTop;
@@ -65,6 +85,7 @@ class Home extends React.Component {
             mySwiper.swipeNext();
         }
         window.addEventListener('scroll', this.handleScroll);
+        // this.getList()
     }
 
     componentWillUnmount() {
@@ -107,7 +128,7 @@ class Home extends React.Component {
                                 <ul className="menu">
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
                                     <Link   to="/serviceTeam">暖虎服务队</Link>
-                                    <Link   to="/accountManagement">暖虎平台账号管理</Link>
+                                    <Link   to="/accountManagement">多业务跨平台统一管理</Link>
                                     <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
                                     <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
@@ -292,7 +313,7 @@ class Home extends React.Component {
                                     <div className="">
                                         智能调节阀管理平台
                                     </div>
-                                    <a href="javascript:;" className="swiper-slide-a">了解详情</a>
+                                    <Link to="/intelligentValve" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-2">
@@ -319,7 +340,7 @@ class Home extends React.Component {
                                     <div className="">
                                         智能调节阀管理平台
                                     </div>
-                                    <a href="javascript:;" className="swiper-slide-a">了解详情</a>
+                                    <Link to="/intelligentValve" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-2">

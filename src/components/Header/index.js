@@ -60,7 +60,7 @@ class Header extends React.Component{
                                 <ul className="menu">
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
                                     <Link   to="/serviceTeam">暖虎服务队</Link>
-                                    <Link   to="/accountManagement">暖虎平台账号管理</Link>
+                                    <Link   to="/accountManagement">多业务跨平台统一管理</Link>
                                     <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
                                     <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
                                 </ul>

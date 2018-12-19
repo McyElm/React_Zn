@@ -24,7 +24,7 @@ class ServiceTeam extends React.Component {
                         <div  className="left">
                             <h2>暖虎服务队</h2>
                             <p>为帮助用户在使用暖虎云平台的产品和服务时获得更好的体验， 我们配置了专业的服务队伍，可提供OTO模式的全面服务</p>
-                            <a href="javascript:;">了解相关产品</a>
+                            <a href="javascript:;">联系我们</a>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>

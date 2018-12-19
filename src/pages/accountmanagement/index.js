@@ -8,7 +8,7 @@ import img02 from '../../assets/img/account02.png';
 import img03 from '../../assets/img/account03.png';
 import img04 from '../../assets/img/account04.png';
 import img05 from '../../assets/img/account05.png';
-class accountManagement extends React.Component {
+class AccountManagement extends React.Component {
     componentDidMount() {
         this.props.menuShowBool({
             'isShow': 'block'
@@ -22,9 +22,9 @@ class accountManagement extends React.Component {
                 <div className="banner">
                     <div className="conent">
                         <div  className="left">
-                            <h2>暖虎账号管理平台</h2>
-                            <p>账号管理平台主要为用户在体验暖虎云平台的产品和服务时， 提供与登录授权有关的管理服务</p>
-                            <a href="javascript:;">立即体验</a>
+                            <h2>多业务跨平台统一管理</h2>
+                            <p>主要为用户在体验暖虎云平台的产品和服务时， 提供与登录授权有关的管理服务</p>
+                            <a href="http://113.4.132.19:10080" target="frameZh">立即体验</a>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>
@@ -77,4 +77,4 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(accountManagement)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountManagement)
