@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Modal } from 'antd'
+
 export default class Axios {
     static ajax(options){
         let loading;
@@ -44,7 +45,7 @@ export default class Axios {
                     }else{
                         Modal.info({
                             title:"暖虎云平台",
-                            content:res.msg
+                            content:res.Msg
                         })
                         reject(res);
                     }

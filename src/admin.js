@@ -5,6 +5,7 @@ import Footerregister from './components/Footer_register'
 import {connect} from 'react-redux'
 import {switch_userInfo} from './redux/action/index'
 class Admin extends React.Component{
+
     render(){
         return (
             <div className="main_wrap">

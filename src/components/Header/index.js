@@ -17,9 +17,10 @@ class Header extends React.Component{
     LogOut(){
         if(window.confirm("确定退出吗？"))
         {
+            sessionStorage.setItem('userInfo', null);
           this.props.LogOutProps({
               isLogIn:false,
-              userName:''
+              UserName:''
           })
         }
 
@@ -48,7 +49,7 @@ class Header extends React.Component{
                                 <div className="border"></div>
                                 服务工具
                                 <ul className="menu">
-                                    <a   to="/">热力管网水力平衡计算分析软件</a>
+                                    <a   to="/">供热管网水力计算分析软件</a>
                                     <a   href="http://113.4.132.19:8078" target="frameZz">枝状管网水力平衡计算软件</a>
                                     <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
@@ -60,15 +61,15 @@ class Header extends React.Component{
                                 <ul className="menu">
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
                                     <Link   to="/serviceTeam">暖虎服务队</Link>
-                                    <Link   to="/accountManagement">多业务跨平台统一管理</Link>
+                                    <Link   to="/accountManagement">跨平台多业务账号管理</Link>
                                     <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
                                     <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
                             </li>
-                            <li  data-index="5" className={["li bz border", "5"===this.props.menuIndex?"active":null].join(' ')}>
+                            <Link to="help"  data-index="5" className={["li bz border", "5"===this.props.menuIndex?"active":null].join(' ')}>
                                 <div className="border"></div>
                                 帮助中心
-                            </li>
+                            </Link>
                         </ul>
                         {
                             this.props.userInfo.isLogIn==false?(<div className="d_right">
@@ -82,7 +83,7 @@ class Header extends React.Component{
                                     <div className="li dl" onClick={this.LogOut}>
                                         退出
                                     </div>
-                                    <div className="li"> {this.props.userInfo.userName}</div>
+                                    <div className="li na"> {this.props.userInfo.UserName}</div>
                                 </div>)
                         }
                     </div>

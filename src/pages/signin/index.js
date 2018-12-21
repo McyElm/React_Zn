@@ -5,9 +5,10 @@ import utils from '../../utils/utils'
 import {connect} from 'react-redux'
 import {switch_userInfo} from '../../redux/action/index'
 import Axios from '../../axios'
-import { message } from 'antd'
+import {message} from 'antd'
 import './index.less';
-import axios from 'axios'
+import axios  from 'axios'
+import {signBaseUrl,localBaseUrl}  from '../../config/Config'
 class SignIn extends React.Component {
     constructor(props) {
         super(props);
@@ -18,43 +19,68 @@ class SignIn extends React.Component {
         this.imgCodeChange = this.imgCodeChange.bind(this);
         this.codeChange = this.codeChange.bind(this);
     }
+
     state = {
-        znUserNames:"",
+        znUserNames: "",
         znPassWords: "",
         znCodes: "",
         errorInfo: "",
         discodeBtn: false,
-        btnContent:'登录',
-        znUrl:window.location.href.split("?")[0],
-        type:1,
-        imgCode:'',
-        guid:''
+        btnContent: '登录',
+        znUrl: "http://"+window.location.host,
+        type: 1,
+        imgCode: '',
+        guid: ""
     };
 
     componentDidMount() {
         this.initValue();
-        var uuid=utils.uuid();
-        // this.codeChange()
+        this.setState({guid: utils.uuid()}, () => {
+            this.initCode()
+        })
     }
-    codeChange(){
+
+    initCode() {
         Axios.ajax({
-            url:'http://192.168.100.19:9000/SSOService.asmx/ModifyVerifyImage',
-            type:'post',
-            data:{
-                isShowLoading:false,
+            url: signBaseUrl+'/SSOService.asmx/GenerateVerifyImage',
+            type: 'get',
+            data: {
+                isShowLoading: false,
                 params: {
                     guid: this.state.guid,
                     nlens: 4
                 }
             }
-        }).then((res)=>{
-            this.setState({imgCode:res.Data+"?"+utils.uuid()})
-        }).catch((res)=>{
+        }).then((res) => {
+            this.setState({imgCode: res.Data + "?" + utils.uuid()})
+
+        }).catch((res) => {
         })
     }
-    imgCodeChange(){
-       // this.codeChange()
+
+    codeChange() {
+        Axios.ajax({
+            url: signBaseUrl+'/SSOService.asmx/ModifyVerifyImage',
+            type: 'get',
+            data: {
+                isShowLoading: false,
+                params: {
+                    guid: this.state.guid,
+                    nlens: 4
+                }
+            }
+        }).then((res) => {
+            this.setState({imgCode: res.Data + "?" + utils.uuid()})
+
+        }).catch((res) => {
+        })
+
     }
+
+    imgCodeChange() {
+        this.codeChange()
+    }
+
     signin() {
         if (utils.trim(this.state.znUserNames) == '') {
             this.setState({
@@ -74,34 +100,58 @@ class SignIn extends React.Component {
             });
             return;
         }
-        this.setState({
-            btnContent:'登录中...',
-            discodeBtn: true,
-        })
-        const form = document.createElement('form');
-        form.id = 'form-file-download';
-        form.name = 'form-file-download';
-        // 添加到 body 中
-        document.body.appendChild(form);
-        for (const key in this.state) {
-            if (this.state[key]!== undefined && Object.hasOwnProperty.call(this.state, key)) {
-                // 创建一个输入
+        this.setState({btnContent: '登录中...', discodeBtn: true}, () => {
+            Axios.ajax({
+                url: signBaseUrl+'/SSOService.asmx/Login',
+                type: 'post',
+                data: {
+                    isShowLoading: false,
+                    params: {
+                        uid: this.state.guid,
+                        userName: this.state.znUserNames,
+                        Pwd: this.state.znPassWords,
+                        code_input: this.state.znCodes.toLocaleLowerCase(),
+                    }
+                }
+            }).then((res) => {
+                var obj=res.Data.t_User;
+                obj.isLogIn=true;
+                this.props.userInfoFn(obj)
+                var SoftList = res.Data.SoftList;
+                const form = document.createElement('form');
+                form.id = 'form-file-download';
+                form.name = 'form-file-download';
+                // 添加到 body 中
+                document.body.appendChild(form);
+                for (const key in this.state) {
+                    if (this.state[key] !== undefined && Object.hasOwnProperty.call(this.state, key)) {
+                        // 创建一个输入
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = this.state[key];
+                        form.appendChild(input);
+                    }
+                }
                 const input = document.createElement('input');
                 input.type = 'hidden';
-                input.name = key;
-                input.value = this.state[key];
+                input.name = 'SoftList';
+                input.value = JSON.stringify(SoftList);
                 form.appendChild(input);
-            }
-        }
-        // form 的提交方式
-        form.method = 'POST';
-        // form 提交路径
-        var baseUrl="";
-        form.action = baseUrl+'/Test.aspx';
-        form.submit();
-        document.body.removeChild(form);
-
+                // form 的提交方式
+                form.method = 'POST';
+                // form 提交路径
+                form.action =localBaseUrl+'/LoginSuccess.aspx';
+                form.submit();
+                document.body.removeChild(form);
+            }).catch((res) => {
+                this.setState({btnContent: '登录', discodeBtn: false,znCodes:''});
+                this.codeChange()
+                this.initValue()
+            })
+        })
     }
+
     inputChange(e, type) {
         var value = e.target.value;
         this.setState({
@@ -117,29 +167,31 @@ class SignIn extends React.Component {
     }
 
     inputBlur(id, type) {
-        if (Boolean(this.state[type])==true) {
+        if (Boolean(this.state[type]) == true) {
             document.getElementById(id).style.bottom = "30px"
         } else {
             document.getElementById(id).style.bottom = "6px"
         }
     }
-    initValue(){
-        if (Boolean(this.state.znUserNames)==true) {
+
+    initValue() {
+        if (Boolean(this.state.znUserNames) == true) {
             document.getElementById("znUserNamesLabel").style.bottom = "30px"
         } else {
             document.getElementById("znUserNamesLabel").style.bottom = "6px"
         }
-        if (Boolean(this.state.znPassWords)==true) {
+        if (Boolean(this.state.znPassWords) == true) {
             document.getElementById("znPassWordsLabel").style.bottom = "30px"
         } else {
             document.getElementById("znPassWordsLabel").style.bottom = "6px"
         }
-        if (Boolean(this.state.znCodes)==true) {
+        if (Boolean(this.state.znCodes) == true) {
             document.getElementById("znCodesLabel").style.bottom = "30px"
         } else {
             document.getElementById("znCodesLabel").style.bottom = "6px"
         }
     }
+
     render() {
         return (
             <div className="SignIn-wrap">
@@ -155,7 +207,7 @@ class SignIn extends React.Component {
                                 this.inputBlur("znUserNamesLabel", "znUserNames")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znUserNames")
-                            }} defaultValue={this.state.znUserNames}/>
+                            }} />
                             <label htmlFor="znUserNames" id="znUserNamesLabel"><span
                                 className="iconfont icon-yonghu1"> </span>用户账号</label>
                         </div>
@@ -166,7 +218,7 @@ class SignIn extends React.Component {
                                 this.inputBlur("znPassWordsLabel", "znPassWords")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znPassWords")
-                            }} defaultValue={this.state.znPassWords}/>
+                            }} />
                             <label htmlFor="znPassWords" id="znPassWordsLabel"><span
                                 className="iconfont icon-mima"> </span>用户密码</label>
                         </div>
@@ -177,7 +229,7 @@ class SignIn extends React.Component {
                                 this.inputBlur("znCodesLabel", "znCodes")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znCodes")
-                            }} defaultValue={this.state.znCodes}/>
+                            }} value={this.state.znCodes} />
                             <label htmlFor="znCodes" id="znCodesLabel"><span
                                 className="iconfont icon-yanzhengma2"> </span>验证码</label>
                         </div>
@@ -187,10 +239,10 @@ class SignIn extends React.Component {
                         <div className="clear"></div>
                     </div>
                     <div className="info">{this.state.errorInfo}</div>
-                    <input type="submit" className="btn" defaultValue={this.state.btnContent} onClick={this.signin}
+                    <input type="submit" className="btn" value={this.state.btnContent} onClick={this.signin}
                            disabled={this.state.discodeBtn}/>
                     <div className="w_z">
-                        <a className="a1" href="####">忘记密码</a>
+                        <a className="a1" href="http://113.4.132.19:10080/AccountAppeal.aspx" target="frameWm">忘记密码</a>
                         <Link to="/signUp" className="a2">注册 <span className="iconfont icon-right"></span></Link>
                     </div>
                 </div>
@@ -200,17 +252,13 @@ class SignIn extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    return {
-
-    }
+    return {}
 }
 const mapDispatchToProps = dispatch => {
     return {
         userInfoFn: function (obj) {
+            console.log(obj);
             dispatch(switch_userInfo(obj));
-            setTimeout(function () {
-                window.location.href="/home"
-            },5000)
 
         }
     }

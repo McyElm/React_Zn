@@ -4,6 +4,9 @@ import nh_ypt from '../../assets/img/nh_ypt.png';
 import {Link} from 'react-router-dom'
 import utils from '../../utils/utils'
 import laydate from 'layui-laydate'
+import Axios from '../../axios'
+import {signBaseUrl}  from '../../config/Config'
+import {message} from 'antd'
 export default class SignUp extends React.Component {
     constructor(props) {
         super(props)
@@ -13,28 +16,30 @@ export default class SignUp extends React.Component {
         this.sendCode = this.sendCode.bind(this);
         this.signup = this.signup.bind(this);
         this.check = this.check.bind(this);
+        this.redioChage = this.redioChage.bind(this);
     }
 
     state = {
-        znUserName: '',
-        znPassWord: '',
-        znPassWord2: '',
-        znNickName: '',
-        znEmail: '',
-        znName: '',
-        znBirthday: '',
-        znTelephone: '',
-        znCode: '',
+        znUserType:'0',
+        znUserName: '',//账号
+        znPassWord: '',//密码
+        znPassWord2: '',//确认密码
+        znNickName: '',//昵称
+        znEmail: '',//邮箱
+        znName: '',//联系人
+        znBirthday: '',//出生日期
+        znTelephone: '',//联系电话
+        znCode: '',//验证码
+        guid:'',//
         btnText: '获取验证码',
         timer: 60,
         agree: true,//是否勾选服务条款
-        timerBool: false,//是否获取验证码
+        timerBool: false,//是否获取过验证码
         disCodeBtn: false,//获取验证码之后禁止点击
         zCBtn: false,//注册按钮是否可以点击
         errorInfo: '',
         btnContent: "注册"
     }
-
     componentDidMount() {
         var that = this;
         laydate.render({
@@ -231,29 +236,32 @@ export default class SignUp extends React.Component {
 
         this.setState({
             btnContent: '注册中...',
-            disCodeBtn: true,
             zCBtn: true,
             errorInfo: ""
+        },()=>{
+            Axios.ajax({
+                url:signBaseUrl+'/SSOService.asmx/RegisterUser',
+                type: 'post',
+                data:{
+                    isShowLoading:false,
+                    params:  this.state
+                }
+            }).then((res)=>{
+                message.success("注册成功,请等待管理员审核！");
+                setTimeout(function () {
+                    window.location.href="/"
+                },2000)
+            }).catch((res)=>{
+                this.setState({
+                    btnContent: '注册',
+                    zCBtn: false,
+                })
+            })
         })
 
-        // Axios.ajax({
-        //     url:'/Test.aspx',
-        //     data:{
-        //         isShowLoading:false,
-        //         params: {
-        //             userName: this.state.znUserNames,
-        //             password: this.state.znPassWords,
-        //             code:this.state.znCodes
-        //         }
-        //     }
-        // }).then((res)=>{
-        //
-        // }).catch((res)=>{
-        //     this.setState({
-        //         btnContent:'登录',
-        //         disCodeBtn: false,
-        //     })
-        // })
+    }
+    redioChage(e){
+        this.setState({znUserType:e.target.value})
     }
     sendCode() {
         var phone = /^[0-9]{1,16}$/;
@@ -269,17 +277,34 @@ export default class SignUp extends React.Component {
             });
             return;
         }
-        this.setState({timerBool: true,disCodeBtn: true});
-        let siv = setInterval(() => {
-            var time = this.state.timer;
-            time -= 1;
-            this.setState({timer: time, btnText: `(${this.state.timer})秒`}, () => {
-                if (this.state.timer === 0) {
-                    clearInterval(siv);
-                    this.setState({btnText: '重新发送', disCodeBtn: false, timer: 60})
+        Axios.ajax({
+            url:signBaseUrl+'/SSOService.asmx/RegsterSMS',
+            type: 'post',
+            data:{
+                isShowLoading:false,
+                params:  {
+                    guid:utils.uuid(),
+                    znTelephone:this.state.znTelephone
                 }
+            }
+        }).then((res)=>{
+            this.setState({timerBool: true,disCodeBtn: true},()=>{
+                let siv = setInterval(() => {
+                    var time = this.state.timer;
+                    time -= 1;
+                    this.setState({timer: time, btnText: `(${this.state.timer})秒`}, () => {
+                        if (this.state.timer === 0) {
+                            clearInterval(siv);
+                            this.setState({btnText: '重新发送', disCodeBtn: false, timer: 60})
+                        }
+                    });
+                }, 1000);
             });
-        }, 1000);
+
+        }).catch((res)=>{
+
+        })
+
 
     }
     check(e) {
@@ -293,15 +318,16 @@ export default class SignUp extends React.Component {
                         <Link to="/home"><img src={nh_ypt} alt=""/></Link>
                     </div>
                     <div className="box">
+
                         <div className="item">
                             <span className="usertype">账号类型</span>
-                            <input type="radio" name="type" defaultChecked id="person"/>
+                            <input type="radio" name="type" defaultChecked onChange={(e)=>{this.redioChage(e)}} value="0" id="person"/>
                             <label htmlFor="person">个人用户</label>
-                            <input type="radio" name="type" id="unit"/>
+                            <input type="radio" name="type" value="1" onChange={(e)=>{this.redioChage(e)}} id="unit"/>
                             <label htmlFor="unit">使用单位</label>
-                            <input type="radio" name="type" id="supplier"/>
+                            <input type="radio" name="type" value="3" onChange={(e)=>{this.redioChage(e)}} id="supplier"/>
                             <label htmlFor="supplier">供应商</label>
-                            <input type="radio" name="type" id="agent"/>
+                            <input type="radio" name="type" value="2" onChange={(e)=>{this.redioChage(e)}} id="agent"/>
                             <label htmlFor="agent">代理商</label>
                         </div>
                         <div className="form-group">
@@ -407,8 +433,8 @@ export default class SignUp extends React.Component {
                             this.check(e)
                         }}/>
                         我已阅读并同意暖虎平台
-                        <a href="####">《隐私政策》</a>和
-                        <a href="####">《服务条款》</a>
+                        <Link to="privacy" target="frameYs">《隐私政策》</Link>和
+                        <Link to="clause" target="frameFw">《服务条款》</Link>
                     </div>
                     <div className="y_y">
                         已有账号,

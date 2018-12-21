@@ -130,6 +130,12 @@
           cursor: pointer;
           color: white;
         }
+        .na{
+          width: 162px;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space:nowrap;
+        }
       }
     }
     .botm{
@@ -417,6 +423,7 @@
       text-align: center;
       position: relative;
       .y{
+        display:block;
         height: 76px;
         width: 127px;
         text-align: center;
@@ -588,26 +595,38 @@
     background-color: white;
     z-index: 99;
   }
+  .s_t_t{
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 100px;
+    padding-left: 235px;
+    text-align: left;
+    .title{
+      display: inline-block;
+      font-size:30px ;
+      padding-bottom: 42px;
+      color: #ffffff;
+    }
+    a{
+      float: right;
+    }
+  }
   .s_t{
     width: 725px;
     margin: 0 auto;
     text-align: left;
-    padding-top: 100px;
     min-height: 377px;
     color: @colorM;
-    .title{
-      font-size:@fontF ;
-      width: 100%;
-      padding-bottom: 42px;
 
-    }
-    li{
+    .li{
+      display: block;
       width: 725px ;
-      font-size:@fontJ ;
+      font-size:20px ;
       line-height: 47px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      color: white;
     }
   }
   .s_q{

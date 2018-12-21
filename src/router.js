@@ -13,6 +13,8 @@ import IntelligentValve from './pages/intelligentvalve';
 import Privacy from './pages/privacy';
 import About from './pages/about';
 import Clause from './pages/clause';
+import PipeNetwork from './pages/pipenetwork';
+import Help from './pages/help';
 export default class ERouter extends React.Component{
     render(){
         return (
@@ -33,6 +35,8 @@ export default class ERouter extends React.Component{
                                     <Route path="/privacy" component={Privacy} />
                                     <Route path="/about" component={About} />
                                     <Route path="/clause" component={Clause} />
+                                    <Route path="/pipeNetwork" component={PipeNetwork} />
+                                    <Route path="/help" component={Help} />
                                     <Redirect to="/home" />
                                 </Switch>
                             </Admin>         

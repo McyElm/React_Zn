@@ -8,6 +8,8 @@ import nh_ypt from '../../assets/img/nh_ypt.png';
 import ljnw from '../../assets/img/ljnw.png';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {signBaseUrl,localBaseUrl}  from '../../config/Config'
+import utils from '../../utils/utils'
 import {switch_menuShowBool, switchIndex,switch_userInfo} from '../../redux/action/index'
 class Home extends React.Component {
     constructor(props) {
@@ -16,12 +18,14 @@ class Home extends React.Component {
         this.LogOut = this.LogOut.bind(this);
         this.getList = this.getList.bind(this);
         this.state = {
-            item: []
+            item: [
+
+            ]
         }
     }
     getList(){
         Axios.ajax({
-            url:'http://192.168.100.19:9000/SSOService.asmx/GetArticleList',
+            url:signBaseUrl+'/SSOService.asmx/GetArticleList',
             type:'post',
             data:{
                 isShowLoading:false,
@@ -52,14 +56,16 @@ class Home extends React.Component {
     LogOut(){
         if(window.confirm("确定退出吗？"))
         {
+            sessionStorage.setItem('userInfo', null);
             this.props.LogOutProps({
                 isLogIn:false,
-                userName:''
+                UserName:''
             })
         }
 
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.props.menuShowBool({
             'isShow': 'none',
         });
@@ -85,7 +91,7 @@ class Home extends React.Component {
             mySwiper.swipeNext();
         }
         window.addEventListener('scroll', this.handleScroll);
-        // this.getList()
+        this.getList()
     }
 
     componentWillUnmount() {
@@ -117,7 +123,7 @@ class Home extends React.Component {
                             <li data-index="3" className="li">
                                 服务工具
                                 <ul className="menu">
-                                    <a   to="/">热力管网水力平衡计算分析软件</a>
+                                    <a   to="/">供热管网水力计算分析软件</a>
                                     <a   href="http://113.4.132.19:8078" target="frameZz">枝状管网水力平衡计算软件</a>
                                     <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
@@ -128,12 +134,12 @@ class Home extends React.Component {
                                 <ul className="menu">
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
                                     <Link   to="/serviceTeam">暖虎服务队</Link>
-                                    <Link   to="/accountManagement">多业务跨平台统一管理</Link>
+                                    <Link   to="/accountManagement">跨平台多业务账号管理</Link>
                                     <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
                                     <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
                             </li>
-                            <li data-index="5" className="li bz">帮助中心</li>
+                            <Link to="help" data-index="5" className="li bz">帮助中心</Link>
                         </ul>
                         {
                             this.props.userInfo.isLogIn==false?(<div className="d_right">
@@ -147,7 +153,7 @@ class Home extends React.Component {
                                     <div className="li dl" onClick={this.LogOut}>
                                         退出
                                     </div>
-                                    <div className="li"> {this.props.userInfo.userName}</div>
+                                    <div className="li na"> {this.props.userInfo.UserName}</div>
                                 </div>)
                         }
                     </div>
@@ -241,7 +247,7 @@ class Home extends React.Component {
                             暖虎服务队
                         </div>
                         <div className="content">
-                            提供智能供热整体解方案，不止于产品和服务
+                            提供OTO模式的全面服务，帮助用户获得更好的体验。
                         </div>
                         <Link to="/serviceTeam" className="x_q">查看详情</Link>
                     </div>
@@ -260,11 +266,11 @@ class Home extends React.Component {
                 </div>
                 <div className="f_j_box">
                     <div className="f_j_i">
-                        <div className="y">
+                        <Link to="pipeNetwork" className="y">
                             详情/应用
-                        </div>
+                        </Link>
                         <div className="t">
-                            热力管网水利平衡计算分析软件
+                            供热管网水力计算分析软件
                         </div>
                     </div>
                     <div className="f_j_i ">
@@ -322,7 +328,7 @@ class Home extends React.Component {
                                     <div className="">
                                         室温采集分析平台
                                     </div>
-                                    <a href="javascript:;" className="swiper-slide-a">了解详情</a>
+                                    <a  className="swiper-slide-a">了解详情</a>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-3">
@@ -349,7 +355,7 @@ class Home extends React.Component {
                                     <div className="">
                                         室温采集分析平台
                                     </div>
-                                    <a href="javascript:;" className="swiper-slide-a">了解详情</a>
+                                    <a  className="swiper-slide-a">了解详情</a>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-3">
@@ -379,20 +385,23 @@ class Home extends React.Component {
                     </div>
                 </div>
                 <div className="s_q">
+                    <div className="s_t_t">
+                        <div className="title">社区头条</div>
+                        <a href="javascript:;" className="s_q_btn">社区详情</a>
+                    </div>
                     <div className="s_t">
                         <ul>
-                            <li className="title">社区头条</li>
+
                             {
                                 this.state.item.map(function (item, index) {
-                                    if (index < 4) {
-                                        return <li key={index}>{item.text}</li>
+                                    if (index < 8) {
+                                        return <a className="li" key={index}>{index+1}&nbsp;&nbsp;&nbsp;&nbsp;{item.MessageTitle}&nbsp;&nbsp;&nbsp;&nbsp;{utils.formateDate(item.ModifiedTime)}</a>
                                     }
 
                                 })
                             }
                         </ul>
                     </div>
-                    <a href="javascript:;" className="s_q_btn">社区详情</a>
                 </div>
                 <div className="h_z">
                     <h3>合作伙伴</h3>

@@ -9,7 +9,7 @@ export default class Footer extends React.Component {
                     <div className="nh_r"></div>
                     <div className="bx_box">
                         <div className="bx">
-                            <p>帮助中心</p>
+                            <p> <Link to="/help">帮助中心</Link> </p>
                             <p> <Link to="/clause">服务条款</Link> </p>
                             <p> <Link to="/privacy">隐私条款</Link> </p>
                             <p> <Link to="/about">关于我们</Link> </p>
