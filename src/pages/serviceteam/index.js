@@ -7,7 +7,7 @@ import img01 from '../../assets/img/service_01.png';
 import img02 from '../../assets/img/service_02.png';
 import img03 from '../../assets/img/service_03.png';
 import img04 from '../../assets/img/service_04.png';
-
+import {Link} from 'react-router-dom'
 class ServiceTeam extends React.Component {
     componentDidMount() {
         this.props.menuShowBool({
@@ -24,7 +24,7 @@ class ServiceTeam extends React.Component {
                         <div  className="left">
                             <h2>暖虎服务队</h2>
                             <p>为帮助用户在使用暖虎云平台的产品和服务时获得更好的体验， 我们配置了专业的服务队伍，可提供OTO模式的全面服务</p>
-                            <a href="javascript:;">联系我们</a>
+                            <Link to={{pathname:"help",search:"?key=4"}}>联系我们</Link>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>

@@ -3,7 +3,7 @@ import './index.less';
 import {connect} from 'react-redux'
 import {switch_menuShowBool,switchIndex} from '../../redux/action/index'
 import rightImg from '../../assets/img/intelligent_banner.png';
-
+import {signBaseUrl,localBaseUrl,zhBaseUrl,znBaseUrl,zzBaseUrl}  from '../../config/Config'
 class IntelligentValve extends React.Component {
     componentDidMount() {
         this.props.menuShowBool({
@@ -20,7 +20,7 @@ class IntelligentValve extends React.Component {
                         <div  className="left">
                             <h2>智能调节阀管理平台</h2>
                             <p>智能调节阀管理平台是集中供热户间智能调节阀的智能管理平台 ，包括云端平台、移动端APP</p>
-                            <a href="http://113.4.132.19:8991" target="frameZf">立即体验</a>
+                            <a href={znBaseUrl} target="frameZf">立即体验</a>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>

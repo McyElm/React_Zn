@@ -6,7 +6,7 @@ import utils from '../../utils/utils'
 import laydate from 'layui-laydate'
 import Axios from '../../axios'
 import {signBaseUrl}  from '../../config/Config'
-import {message} from 'antd'
+import {Modal} from 'antd'
 export default class SignUp extends React.Component {
     constructor(props) {
         super(props)
@@ -16,7 +16,7 @@ export default class SignUp extends React.Component {
         this.sendCode = this.sendCode.bind(this);
         this.signup = this.signup.bind(this);
         this.check = this.check.bind(this);
-        this.redioChage = this.redioChage.bind(this);
+        this.countDown = this.countDown.bind(this);
     }
 
     state = {
@@ -104,12 +104,17 @@ export default class SignUp extends React.Component {
             [type]: e.target.value
         });
     }
-
     inputFocus(id) {
         document.getElementById(id).style.bottom = "35px";
         this.setState({
             errorInfo: ''
         })
+        if(id=="znPassWordLabel"){
+            document.getElementById("znPassWord").setAttribute("type","password")
+        }
+        if(id=="znPassWordLabel2"){
+            document.getElementById("znPassWord2").setAttribute("type","password")
+        }
     }
 
     inputBlur(id, type) {
@@ -119,7 +124,24 @@ export default class SignUp extends React.Component {
             document.getElementById(id).style.bottom = "6px"
         }
     }
-
+    countDown() {
+        let secondsToGo = 5;
+        const modal = Modal.success({
+            title: '注册成功',
+            content: `请等待管理员审核。${secondsToGo}秒后返回首页`,
+        });
+        const timer = setInterval(() => {
+            secondsToGo -= 1;
+            modal.update({
+                content: `请等待管理员审核。 (${secondsToGo})秒后返回首页`,
+            });
+        }, 1000);
+        setTimeout(() => {
+            clearInterval(timer);
+            modal.destroy();
+            this.props.history.push("/home")
+        }, secondsToGo * 1000);
+    }
     signup() {
         var username = /^[a-zA-Z0-9]{6,16}$/;
         var password = /^[a-zA-Z0-9]{6,16}$/;
@@ -241,16 +263,13 @@ export default class SignUp extends React.Component {
         },()=>{
             Axios.ajax({
                 url:signBaseUrl+'/SSOService.asmx/RegisterUser',
-                type: 'post',
+                type: 'get',
                 data:{
                     isShowLoading:false,
                     params:  this.state
                 }
             }).then((res)=>{
-                message.success("注册成功,请等待管理员审核！");
-                setTimeout(function () {
-                    window.location.href="/"
-                },2000)
+                this.countDown();
             }).catch((res)=>{
                 this.setState({
                     btnContent: '注册',
@@ -259,9 +278,6 @@ export default class SignUp extends React.Component {
             })
         })
 
-    }
-    redioChage(e){
-        this.setState({znUserType:e.target.value})
     }
     sendCode() {
         var phone = /^[0-9]{1,16}$/;
@@ -277,33 +293,39 @@ export default class SignUp extends React.Component {
             });
             return;
         }
-        Axios.ajax({
-            url:signBaseUrl+'/SSOService.asmx/RegsterSMS',
-            type: 'post',
-            data:{
-                isShowLoading:false,
-                params:  {
-                    guid:utils.uuid(),
-                    znTelephone:this.state.znTelephone
+        var guid=utils.uuid();
+        this.setState({
+            guid:guid
+        },()=>{
+            Axios.ajax({
+                url:signBaseUrl+'/SSOService.asmx/RegsterSMS',
+                type: 'post',
+                data:{
+                    isShowLoading:false,
+                    params:  {
+                        guid:guid,
+                        znTelephone:this.state.znTelephone
+                    }
                 }
-            }
-        }).then((res)=>{
-            this.setState({timerBool: true,disCodeBtn: true},()=>{
-                let siv = setInterval(() => {
-                    var time = this.state.timer;
-                    time -= 1;
-                    this.setState({timer: time, btnText: `(${this.state.timer})秒`}, () => {
-                        if (this.state.timer === 0) {
-                            clearInterval(siv);
-                            this.setState({btnText: '重新发送', disCodeBtn: false, timer: 60})
-                        }
-                    });
-                }, 1000);
-            });
+            }).then((res)=>{
+                this.setState({timerBool: true,disCodeBtn: true},()=>{
+                    let siv = setInterval(() => {
+                        var time = this.state.timer;
+                        time -= 1;
+                        this.setState({timer: time, btnText: `(${this.state.timer})秒`}, () => {
+                            if (this.state.timer === 0) {
+                                clearInterval(siv);
+                                this.setState({btnText: '重新发送', disCodeBtn: false, timer: 60})
+                            }
+                        });
+                    }, 1000);
+                });
 
-        }).catch((res)=>{
+            }).catch((res)=>{
 
-        })
+            })
+        });
+
 
 
     }
@@ -318,106 +340,107 @@ export default class SignUp extends React.Component {
                         <Link to="/home"><img src={nh_ypt} alt=""/></Link>
                     </div>
                     <div className="box">
-
+                        <input type="text" className="hide"/>
+                        <input type="password" className="hide"/>
                         <div className="item">
                             <span className="usertype">账号类型</span>
-                            <input type="radio" name="type" defaultChecked onChange={(e)=>{this.redioChage(e)}} value="0" id="person"/>
+                            <input type="radio" name="type" defaultChecked onChange={(e)=>{this.inputChange(e,"znUserType")}} value="0" id="person"/>
                             <label htmlFor="person">个人用户</label>
-                            <input type="radio" name="type" value="1" onChange={(e)=>{this.redioChage(e)}} id="unit"/>
+                            <input type="radio" name="type" value="1" onChange={(e)=>{this.inputChange(e,"znUserType")}} id="unit"/>
                             <label htmlFor="unit">使用单位</label>
-                            <input type="radio" name="type" value="3" onChange={(e)=>{this.redioChage(e)}} id="supplier"/>
+                            <input type="radio" name="type" value="3" onChange={(e)=>{this.inputChange(e,"znUserType")}} id="supplier"/>
                             <label htmlFor="supplier">供应商</label>
-                            <input type="radio" name="type" value="2" onChange={(e)=>{this.redioChage(e)}} id="agent"/>
+                            <input type="radio" name="type" value="2" onChange={(e)=>{this.inputChange(e,"znUserType")}} id="agent"/>
                             <label htmlFor="agent">代理商</label>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="input" id="znUserName" onFocus={(e) => {
+                            <input type="text" maxLength="20" className="input" id="znUserName" onFocus={(e) => {
                                 this.inputFocus("znUserNameLabel",e)
                             }} onBlur={() => {
                                 this.inputBlur("znUserNameLabel", "znUserName")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znUserName")
-                            }} defaultValue={this.state.znUserName}/>
+                            }} value={this.state.znUserName} autoComplete="off"/>
                             <label htmlFor="znUserName" id="znUserNameLabel">用户账号&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母和数字，长度范围：6-16位</label>
                         </div>
                         <div className="form-group">
-                            <input type="passWord" className="input" id="znPassWord" onFocus={() => {
+                            <input type="passWord" maxLength="20" className="input" id="znPassWord" onFocus={() => {
                                 this.inputFocus("znPassWordLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znPassWordLabel", "znPassWord")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znPassWord")
-                            }} defaultValue={this.state.znPassWord}/>
+                            }} value={this.state.znPassWord} autoComplete="off"/>
                             <label htmlFor="znPassWord" id="znPassWordLabel">用户密码&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母和数字，长度范围：6-16位</label>
                         </div>
                         <div className="form-group">
-                            <input type="passWord" className="input" id="znPassWord2" onFocus={() => {
+                            <input type="passWord" maxLength="20" className="input" id="znPassWord2" onFocus={() => {
                                 this.inputFocus("znPassWordLabel2")
                             }} onBlur={() => {
                                 this.inputBlur("znPassWordLabel2", "znPassWord2")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znPassWord2")
-                            }} defaultValue={this.state.znPassWord2}/>
+                            }} value={this.state.znPassWord2} autoComplete="off"/>
                             <label htmlFor="znPassWord2" id="znPassWordLabel2">确认密码</label>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="input" id="znNickName" onFocus={() => {
+                            <input type="text" maxLength="20" className="input" id="znNickName" onFocus={() => {
                                 this.inputFocus("znNickNameLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znNickNameLabel", "znNickName")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znNickName")
-                            }} defaultValue={this.state.znNickName}/>
+                            }} value={this.state.znNickName} autoComplete="off"/>
                             <label htmlFor="znNickName" id="znNickNameLabel">用户昵称&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母汉字和数字，长度范围：3-16位</label>
                         </div>
                         <div className="form-group">
-                            <input type="email" className="input" id="znEmail" onFocus={() => {
+                            <input type="email" maxLength="30" className="input" id="znEmail" onFocus={() => {
                                 this.inputFocus("znEmailLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znEmailLabel", "znEmail")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znEmail")
-                            }} defaultValue={this.state.znEmail}/>
+                            }} value={this.state.znEmail} autoComplete="off"/>
                             <label htmlFor="znEmail" id="znEmailLabel">用户邮箱</label>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="input" id="znName" onFocus={() => {
+                            <input type="text" maxLength="20" className="input" id="znName" onFocus={() => {
                                 this.inputFocus("znNameLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znNameLabel", "znName")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znName")
-                            }} defaultValue={this.state.znName}/>
+                            }} value={this.state.znName} autoComplete="off"/>
                             <label htmlFor="znName" id="znNameLabel">联系人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母汉字和数字，长度范围：2-8位</label>
                         </div>
                         <div className="form-group">
-                            <input type="text" readOnly="readOnly" className="input" id="znBirthday" onFocus={() => {
+                            <input type="text" maxLength="20" readOnly="readOnly" className="input" id="znBirthday" onFocus={() => {
                                 this.inputFocus("znBirthdayLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znBirthdayLabel", "znBirthday")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znBirthday")
-                            }} defaultValue={this.state.znBirthday}/>
+                            }} value={this.state.znBirthday} autoComplete="off"/>
                             <label htmlFor="znBirthday" id="znBirthdayLabel">出生日期</label>
                         </div>
                         <div className="form-group form-group-mis">
-                            <input type="text" className="input" id="znTelephone" onFocus={() => {
+                            <input type="text" maxLength="20" className="input" id="znTelephone" onFocus={() => {
                                 this.inputFocus("znTelephoneLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znTelephoneLabel", "znTelephone")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znTelephone")
-                            }} defaultValue={this.state.znTelephone}/>
+                            }} value={this.state.znTelephone} autoComplete="off"/>
                             <label htmlFor="znTelephone" id="znTelephoneLabel">联系人电话</label>
                         </div>
                         <div className="form-group form-group-mis form-group-min">
-                            <input type="text" className="input" id="znCode" onFocus={() => {
+                            <input type="text" maxLength="20" className="input" id="znCode" onFocus={() => {
                                 this.inputFocus("znCodeLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znCodeLabel", "znCode")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znCode")
-                            }} defaultValue={this.state.znCode}/>
+                            }} value={this.state.znCode} autoComplete="off"/>
                             <label htmlFor="znCode" id="znCodeLabel">验证码</label>
                             <input type="button" className="button" defaultValue={this.state.btnText}
                                    disabled={this.state.disCodeBtn} onClick={this.sendCode}/>

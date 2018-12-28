@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Modal } from 'antd'
-
 export default class Axios {
     static ajax(options){
         let loading;
@@ -43,21 +42,21 @@ export default class Axios {
                     if (res.code == '0'||res.code == 0){
                         resolve(res);
                     }else{
-                        Modal.info({
+                        Modal.error({
                             title:"暖虎云平台",
                             content:res.Msg
                         })
                         reject(res);
                     }
                 }else{
-                    Modal.info({
+                    Modal.error({
                         title:"暖虎云平台",
                         content:"数据接收失败"
                     })
                     reject(response.data);
                 }
             }).catch((error)=>{
-                Modal.info({
+                Modal.error({
                     title:"暖虎云平台",
                     content:error.message
                 })

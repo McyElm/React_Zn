@@ -5,10 +5,8 @@ import utils from '../../utils/utils'
 import {connect} from 'react-redux'
 import {switch_userInfo} from '../../redux/action/index'
 import Axios from '../../axios'
-import {message} from 'antd'
 import './index.less';
-import axios  from 'axios'
-import {signBaseUrl,localBaseUrl}  from '../../config/Config'
+import {signBaseUrl,localBaseUrl,zhBaseUrl,znBaseUrl,zzBaseUrl}  from '../../config/Config'
 class SignIn extends React.Component {
     constructor(props) {
         super(props);
@@ -27,14 +25,13 @@ class SignIn extends React.Component {
         errorInfo: "",
         discodeBtn: false,
         btnContent: '登录',
-        znUrl: "http://"+window.location.host,
+        znUrl: "http://"+window.location.host+"/#/home",
         type: 1,
         imgCode: '',
         guid: ""
     };
 
     componentDidMount() {
-        this.initValue();
         this.setState({guid: utils.uuid()}, () => {
             this.initCode()
         })
@@ -71,7 +68,6 @@ class SignIn extends React.Component {
             }
         }).then((res) => {
             this.setState({imgCode: res.Data + "?" + utils.uuid()})
-
         }).catch((res) => {
         })
 
@@ -103,7 +99,7 @@ class SignIn extends React.Component {
         this.setState({btnContent: '登录中...', discodeBtn: true}, () => {
             Axios.ajax({
                 url: signBaseUrl+'/SSOService.asmx/Login',
-                type: 'post',
+                type: 'get',
                 data: {
                     isShowLoading: false,
                     params: {
@@ -116,6 +112,7 @@ class SignIn extends React.Component {
             }).then((res) => {
                 var obj=res.Data.t_User;
                 obj.isLogIn=true;
+                obj.SoftList=res.Data.SoftList;
                 this.props.userInfoFn(obj)
                 var SoftList = res.Data.SoftList;
                 const form = document.createElement('form');
@@ -146,14 +143,14 @@ class SignIn extends React.Component {
                 document.body.removeChild(form);
             }).catch((res) => {
                 this.setState({btnContent: '登录', discodeBtn: false,znCodes:''});
-                this.codeChange()
-                this.initValue()
+                this.initCode();
             })
         })
     }
 
     inputChange(e, type) {
         var value = e.target.value;
+        e.target.nextElementSibling.style.bottom = "30px"
         this.setState({
             [type]: value
         });
@@ -164,6 +161,9 @@ class SignIn extends React.Component {
         this.setState({
             errorInfo: ''
         })
+        if(id=="znPassWordsLabel"){
+            document.getElementById("znPassWords").setAttribute("type","password")
+        }
     }
 
     inputBlur(id, type) {
@@ -174,23 +174,6 @@ class SignIn extends React.Component {
         }
     }
 
-    initValue() {
-        if (Boolean(this.state.znUserNames) == true) {
-            document.getElementById("znUserNamesLabel").style.bottom = "30px"
-        } else {
-            document.getElementById("znUserNamesLabel").style.bottom = "6px"
-        }
-        if (Boolean(this.state.znPassWords) == true) {
-            document.getElementById("znPassWordsLabel").style.bottom = "30px"
-        } else {
-            document.getElementById("znPassWordsLabel").style.bottom = "6px"
-        }
-        if (Boolean(this.state.znCodes) == true) {
-            document.getElementById("znCodesLabel").style.bottom = "30px"
-        } else {
-            document.getElementById("znCodesLabel").style.bottom = "6px"
-        }
-    }
 
     render() {
         return (
@@ -200,6 +183,8 @@ class SignIn extends React.Component {
                         <Link to="/home"><img src={nh_ypt} alt=""/></Link>
                     </div>
                     <div className="box">
+                        <input type="text" className="hide"/>
+                        <input type="password" className="hide"/>
                         <div className="form-group">
                             <input type="text" maxLength="20" className="input" id="znUserNames" onFocus={() => {
                                 this.inputFocus("znUserNamesLabel")
@@ -207,18 +192,18 @@ class SignIn extends React.Component {
                                 this.inputBlur("znUserNamesLabel", "znUserNames")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znUserNames")
-                            }} />
+                            }} autoComplete="off" value={this.state.znUserNames} />
                             <label htmlFor="znUserNames" id="znUserNamesLabel"><span
                                 className="iconfont icon-yonghu1"> </span>用户账号</label>
                         </div>
                         <div className="form-group">
-                            <input type="passWord" maxLength="20" className="input" id="znPassWords" onFocus={() => {
+                            <input type="text" maxLength="20" className="input" id="znPassWords" onFocus={() => {
                                 this.inputFocus("znPassWordsLabel")
                             }} onBlur={() => {
                                 this.inputBlur("znPassWordsLabel", "znPassWords")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znPassWords")
-                            }} />
+                            }} autoComplete="new-password" value={this.state.znPassWords}/>
                             <label htmlFor="znPassWords" id="znPassWordsLabel"><span
                                 className="iconfont icon-mima"> </span>用户密码</label>
                         </div>
@@ -229,7 +214,7 @@ class SignIn extends React.Component {
                                 this.inputBlur("znCodesLabel", "znCodes")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znCodes")
-                            }} value={this.state.znCodes} />
+                            }} value={this.state.znCodes} autoComplete="off" />
                             <label htmlFor="znCodes" id="znCodesLabel"><span
                                 className="iconfont icon-yanzhengma2"> </span>验证码</label>
                         </div>
@@ -242,7 +227,7 @@ class SignIn extends React.Component {
                     <input type="submit" className="btn" value={this.state.btnContent} onClick={this.signin}
                            disabled={this.state.discodeBtn}/>
                     <div className="w_z">
-                        <a className="a1" href="http://113.4.132.19:10080/AccountAppeal.aspx" target="frameWm">忘记密码</a>
+                        <a className="a1" href={zhBaseUrl+"/AccountAppeal.aspx"} target="frameWm">忘记密码</a>
                         <Link to="/signUp" className="a2">注册 <span className="iconfont icon-right"></span></Link>
                     </div>
                 </div>

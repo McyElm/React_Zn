@@ -8,6 +8,7 @@ import img02 from '../../assets/img/account02.png';
 import img03 from '../../assets/img/account03.png';
 import img04 from '../../assets/img/account04.png';
 import img05 from '../../assets/img/account05.png';
+import {signBaseUrl,localBaseUrl,zhBaseUrl,znBaseUrl,zzBaseUrl}  from '../../config/Config'
 class AccountManagement extends React.Component {
     componentDidMount() {
         this.props.menuShowBool({
@@ -24,7 +25,7 @@ class AccountManagement extends React.Component {
                         <div  className="left">
                             <h2>跨平台多业务账号管理</h2>
                             <p>主要为用户在体验暖虎云平台的产品和服务时， 提供与登录授权有关的管理服务</p>
-                            <a href="http://113.4.132.19:10080" target="frameZh">立即体验</a>
+                            <a href={zhBaseUrl} target="frameZh">立即体验</a>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>

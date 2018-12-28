@@ -1,3 +1,4 @@
+import {Modal} from 'antd'
 export default {
     formateDate(time){
         if (!time)return '';
@@ -22,10 +23,16 @@ export default {
         return s.replace(/(^\s*)|(\s*$)/g, "");
     },
     getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
+        var url = window.location.href; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var strs = url.split("?")[1];
+            console.log(strs);
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
     },
     uuid() {
         var s = [];
@@ -39,6 +46,8 @@ export default {
 
         var uuid = s.join("");
         return uuid;
+    },
+    clearCookie(name) {
+        document.cookie=name+ "=;Domain=localhost;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/";
     }
-
 }

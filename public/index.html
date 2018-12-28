@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    (function () {
+        if(navigator.appName == "Microsoft Internet Explorer"&&parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<10){
+            var secondsToGo = 3;
+            alert("您的浏览器版本过低，请下载IE10及以上版本或下载最新版火狐浏览器!")
+            setTimeout(function () {
+                window.location.href="http://www.firefox.com.cn/download/"
+            }, secondsToGo * 1000);
+        }
+    })()
+</script>
   <head>
     <meta charset="utf-8">
     <meta name="Author" content="暖虎软件">
