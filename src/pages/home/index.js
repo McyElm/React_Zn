@@ -296,7 +296,7 @@ class Home extends React.Component {
                         <div className="j_f_b_l">
                             为用户提供多种分析、计算、开发、学习类供热领域专业工具。
                         </div>
-                        <div className="j_f_b_r">更多工具</div>
+                        <Link to="/tools" className="j_f_b_r">更多工具</Link>
                     </div>
                 </div>
                 <div className="f_j_box">
