@@ -55,7 +55,6 @@ class Header extends React.Component{
                 form.action =localBaseUrl+'/ClearCookie.aspx';
                 form.submit();
                 document.body.removeChild(form);
-                console.log(that.props.userInfo.SoftList);
             },
             onCancel() {
                 console.log('Cancel');

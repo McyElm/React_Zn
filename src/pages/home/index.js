@@ -206,7 +206,7 @@ class Home extends React.Component {
                         <div className="j_f_b_l">
                             采用专家最新成果、融合先进供热技术，与您分享智慧供热实践成果。
                         </div>
-                        <div className="j_f_b_r">更多方案</div>
+                        <Link to="/programmes" className="j_f_b_r">更多方案</Link>
                     </div>
                 </div>
                 <div className="j_f_box">
