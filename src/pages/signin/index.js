@@ -32,6 +32,8 @@ class SignIn extends React.Component {
     };
 
     componentDidMount() {
+        document.getElementById("znUserNames").focus();
+        document.getElementById("znUserNames").blur();
         this.setState({guid: utils.uuid()}, () => {
             this.initCode()
         })
@@ -186,13 +188,13 @@ class SignIn extends React.Component {
                         <input type="text" className="hide"/>
                         <input type="password" className="hide"/>
                         <div className="form-group">
-                            <input type="text" maxLength="20" className="input" id="znUserNames" onFocus={() => {
-                                this.inputFocus("znUserNamesLabel")
+                            <input type="text" maxLength="20" className="input" id="znUserNames" onFocus={(e) => {
+                                this.inputFocus("znUserNamesLabel",e)
                             }} onBlur={() => {
                                 this.inputBlur("znUserNamesLabel", "znUserNames")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znUserNames")
-                            }} autoComplete="off" value={this.state.znUserNames} />
+                            }}  value={this.state.znUserNames} autoComplete="off"/>
                             <label htmlFor="znUserNames" id="znUserNamesLabel"><span
                                 className="iconfont icon-yonghu1"> </span>用户账号</label>
                         </div>

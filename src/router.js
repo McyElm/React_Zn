@@ -16,6 +16,7 @@ import Clause from './pages/clause';
 import PipeNetwork from './pages/pipenetwork';
 import Help from './pages/help';
 import Tools from './pages/tools';
+import Platforms from './pages/platforms';
 import Programmes from './pages/programmes';
 import ServiceCommunity from './pages/servicecommunity';
 import InformationDetails from './pages/Informationdetails';
@@ -42,6 +43,7 @@ export default class ERouter extends React.Component{
                                     <Route path="/pipeNetwork" component={PipeNetwork} />
                                     <Route path="/help" component={Help} />
                                     <Route path="/tools" component={Tools} />
+                                    <Route path="/platforms" component={Platforms} />
                                     <Route path="/programmes" component={Programmes} />
                                     <Route path="/serviceCommunity" component={ServiceCommunity} />
                                     <Route path="/informationDetails/:DetailsId" component={InformationDetails} />

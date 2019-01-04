@@ -42,20 +42,22 @@ export default class SignUp extends React.Component {
     }
     componentDidMount() {
         var that = this;
+        document.getElementById("znUserName").focus()
+        document.getElementById("znUserName").blur()
         laydate.render({
             elem: '#znBirthday', //指定元素
             max: 'date'
             , done: function (value, date, endDate) {
-                var data = document.getElementById("znBirthday").value;
-                if (data||value) {
+                var data2 = document.getElementById("znBirthday").value;
+                if (data2||value) {
                     document.getElementById("znBirthdayLabel").style.bottom = "35px"
                     that.setState({
-                        znBirthday: data
+                        znBirthday: data2
                     })
                 }else{
                     document.getElementById("znBirthdayLabel").style.bottom = "6px"
                     that.setState({
-                        znBirthday: data
+                        znBirthday: data2
                     })
                 }
                 if (value) {
@@ -71,16 +73,16 @@ export default class SignUp extends React.Component {
                 }
             },
             change: function (value, date, endDate) {
-                var data = document.getElementById("znBirthday").value;
-                if (data||value) {
+                var data2 = document.getElementById("znBirthday").value;
+                if (data2||value) {
                     document.getElementById("znBirthdayLabel").style.bottom = "35px"
                     that.setState({
-                        znBirthday: data
+                        znBirthday: data2
                     })
                 }else{
                     document.getElementById("znBirthdayLabel").style.bottom = "6px"
                     that.setState({
-                        znBirthday: data
+                        znBirthday: data2
                     })
                 }
                 if (value) {
@@ -100,8 +102,10 @@ export default class SignUp extends React.Component {
     }
 
     inputChange(e, type) {
+        var value = e.target.value;
+        e.target.nextElementSibling.style.bottom = "35px"
         this.setState({
-            [type]: e.target.value
+            [type]: value
         });
     }
     inputFocus(id) {
@@ -145,7 +149,7 @@ export default class SignUp extends React.Component {
     signup() {
         var username = /^[a-zA-Z0-9]{6,16}$/;
         var password = /^[a-zA-Z0-9]{6,16}$/;
-        var nickname = /^[\u4e00-\u9fa5a-zA-Z0-9]{3,16}$/;
+        var nickname = /^[a-zA-Z0-9]{2,16}$/;
         var email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
         var name = /^[\u4e00-\u9fa5a-zA-Z0-9]{2,8}$/;
         var phone = /^[0-9]{1,16}$/;
@@ -189,7 +193,7 @@ export default class SignUp extends React.Component {
         }
         if (!nickname.test(utils.trim(this.state.znNickName))) {
             this.setState({
-                errorInfo: "用户昵称支持大小写字母汉字和数字，长度范围：3-16位"
+                errorInfo: "用户昵称只支持大小写字母和数字，用户昵称长度范围：2-16位！"
             });
             return;
         }
@@ -370,7 +374,7 @@ export default class SignUp extends React.Component {
                                 this.inputBlur("znPassWordLabel", "znPassWord")
                             }} onChange={(e) => {
                                 this.inputChange(e, "znPassWord")
-                            }} value={this.state.znPassWord} autoComplete="off"/>
+                            }} value={this.state.znPassWord} autoComplete="new-password"/>
                             <label htmlFor="znPassWord" id="znPassWordLabel">用户密码&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母和数字，长度范围：6-16位</label>
                         </div>
                         <div className="form-group">
@@ -391,7 +395,7 @@ export default class SignUp extends React.Component {
                             }} onChange={(e) => {
                                 this.inputChange(e, "znNickName")
                             }} value={this.state.znNickName} autoComplete="off"/>
-                            <label htmlFor="znNickName" id="znNickNameLabel">用户昵称&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母汉字和数字，长度范围：3-16位</label>
+                            <label htmlFor="znNickName" id="znNickNameLabel">用户昵称&nbsp;&nbsp;&nbsp;&nbsp;支持大小写字母和数字，长度范围：2-16位</label>
                         </div>
                         <div className="form-group">
                             <input type="email" maxLength="30" className="input" id="znEmail" onFocus={() => {

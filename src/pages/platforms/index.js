@@ -3,13 +3,13 @@ import './index.less';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {switch_menuShowBool,switchIndex} from '../../redux/action/index'
-import banner from '../../assets/img/tools_banner.png';
-import tools01 from '../../assets/img/tools01.png';
-import tools02 from '../../assets/img/tools02.png';
-import tools03 from '../../assets/img/tools03.png';
+import banner from '../../assets/img/platforms_banner.png';
+import tools01 from '../../assets/img/platforms01.png';
+import tools02 from '../../assets/img/platforms02.png';
+import tools03 from '../../assets/img/platforms03.png';
 import tools04 from '../../assets/img/tools04.png';
 import utils from '../../utils/utils'
-class Tools extends React.Component {
+class Platforms extends React.Component {
     constructor(props) {
         super(props);
         this.scrollChange = this.scrollChange.bind(this);
@@ -18,7 +18,7 @@ class Tools extends React.Component {
         this.props.menuShowBool({
             'isShow': 'block'
         });
-        this.props.menuInit("3");
+        this.props.menuInit("2");
         window.scrollTo(0, 0);
     }
     scrollChange(e,anchorName){
@@ -37,11 +37,11 @@ class Tools extends React.Component {
     }
     render() {
         return (
-            <div className="tools-wrap">
+            <div className="platforms-wrap">
                 <div className="banner">
                     <div className="conent">
                         <div  className="left">
-                            <h2>暖虎服务工具</h2>
+                            <h2>暖虎应用平台</h2>
                         </div>
                         <div className="right">
                             <img src={banner} alt=""/>
@@ -50,51 +50,42 @@ class Tools extends React.Component {
                 </div>
                 <div className="m_q">
                     <div  onClick={(e)=>{this.scrollChange(e,"box1")}} className="item ">
-                        热力管网水力平衡计算分析软件
+                        智能调节阀管理平台
                     </div>
                     <div  onClick={(e)=>{this.scrollChange(e,"box2")}} className="item ">
-                        枝状管网水力平衡计算软件
+                        室温采集分析平台
                     </div>
                     <div  onClick={(e)=>{this.scrollChange(e,"box3")}} className="item ">
-                        供热系统校核、设计、仿真软件
+                        智能供热iSCADA平台
                     </div>
-                    <div  onClick={(e)=>{this.scrollChange(e,"box4")}} className="item">
-                        热力站设备测评软件
-                    </div>
+
                 </div>
                 <div className="clear"></div>
                 <div className="dash"></div>
                 <div className="m_q_2" id="box1">
-                    <h6>热力管网水力平衡计算分析软件</h6>
+                    <h6>智能调节阀管理平台</h6>
                     <div className="con">
                         <img className="img img01" src={tools01} alt=""/>
-                        <div className="text">该软件能够针对不同室外参数、不同热源运行模式（单热源、多热源联网运行）、不同热网形式（枝状管网、环形管网）进行供热系统设计工程、改扩建工程、运行工况及事故工况下管网的水力特性和热力特性的模拟计算分析，为供热系统提供可靠的决策服务。软件包含较为完整的管道、水泵、调节阀、其他局部阻力元件类型库，同时含有常用热网计算参数数据库。</div>
-                        <Link to="/pipeNetwork" className="to_details_r">立即了解</Link>
+                        <div className="text">智能调节阀管理平台是集中供热户间智能调节阀的智能管理平台，包括云端平台、移动端APP。平台采用云计算、大数据分析、负载均衡、高并发数据处理等技术，可与百万数量级智能调节阀进行数据交互，采集、分析用户供热数据，通过先进的负荷预测和供热控制策略指导智能调节阀工作，以热力站供热系统覆盖区域的所有热用户为调节对象，最终使供热系统实现水力和热力平衡....</div>
+                        <Link to="/intelligentValve" className="to_details_r">立即了解</Link>
                     </div>
                 </div>
                 <div className="m_q_2" id="box2">
-                    <h6>枝状管网水力平衡计算软件</h6>
+                    <h6>室温采集分析平台</h6>
                     <div className="con">
 
-                        <div className="text text2">该软件能够针对不同室外参数、不同热源运行模式（单热源、多热源联网运行）、不同热网形式（枝状管网、环形管网）进行供热系统设计工程、改扩建工程、运行工况及事故工况下管网的水力特性和热力特性的模拟计算分析，为供热系统提供可靠的决策服务。软件包含较为完整的管道、水泵、调节阀、其他局部阻力元件类型库，同时含有常用热网计算参数数据库。</div>
+                        <div className="text text2">为了实现供暖单位对用户室内温度的采集与记录、管理者随时查看用户室温的变化趋势，辅助管理者分析与决策，对室温超标的用户及时采取措施，减少供热用户投诉，实现最少热能为最大供暖面积提供合格的供暖效果。室内温度采集系统，实现了对用户室内温度的不间断监测，让供暖单位通过监控中心可以直观看到温度实时变化，代替过去由人工来完成的温度数据采集任务；同时监控中心对无线温度采集...
+                        </div>
                         <img className="img img02" src={tools02} alt=""/>
                         <a  className="to_details_l">立即了解</a>
                     </div>
                 </div>
                 <div className="m_q_2" id="box3">
-                    <h6>供热系统校核、设计、仿真软件</h6>
+                    <h6>智能供热ISCADA平台</h6>
                     <div className="con">
                         <img className="img img03" src={tools03} alt=""/>
-                        <div className="text">建设中...</div>
-                        <a  className="to_details_r">立即了解</a>
-                    </div>
-                </div>
-                <div className="m_q_2" id="box4">
-                    <h6>热力站设备测评软件</h6>
-                    <div className="con">
-                        <div className="text text4">建设中...</div>
-                        <img className="img img04" src={tools04} alt=""/>
-                        <a  className="to_details_l">立即了解</a>
+                        <div className="text text3">智能供热iSCADA平台核心关注热网的供热质量、供热能效和供热安全，依托计算机软硬件、通讯设备、自动化设备及仪表等，利用互联网、物联网、可视化、大数据分析、数据管理、信息安全等技术，通过智能决策与分析系统，实现对热网的精准控制和按需供热，并帮助企业提高管理水平，降低生产成本...</div>
+                        <Link to="/iscada" className="to_details_r">立即了解</Link>
                     </div>
                 </div>
             </div>
@@ -114,4 +105,4 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Tools)
+export default connect(mapStateToProps, mapDispatchToProps)(Platforms)

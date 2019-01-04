@@ -342,7 +342,7 @@ class Home extends React.Component {
                         <div className="j_f_b_l">
                             多种基于云端的供热应用平台，帮助用户提高供热的生产、管理、监管水平。
                         </div>
-                        <div className="j_f_b_r">更多平台</div>
+                        <Link to="/platforms" className="j_f_b_r">更多平台</Link>
                     </div>
                 </div>
                 <div className="y_y">
