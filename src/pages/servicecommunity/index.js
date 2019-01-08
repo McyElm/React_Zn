@@ -23,6 +23,8 @@ class ServiceCommunity extends React.Component {
         this.getList = this.getList.bind(this)
         this.textEllipsis = this.textEllipsis.bind(this)
         this.pageInit = this.pageInit.bind(this)
+        this.callbackChild = this.callbackChild.bind(this)
+        this.initIndex = this.initIndex.bind(this)
     }
     componentDidMount() {
         this.props.menuShowBool({
@@ -31,9 +33,11 @@ class ServiceCommunity extends React.Component {
         this.props.menuInit("1");
         window.scrollTo(0, 0);
         this.getList(this.state.current,this.state.pageSize)
+        this.initIndex()
     }
     state={
         key:"1",
+        keyChild:"1",
         item:[],
         current:1,
         pageSize:10,
@@ -42,8 +46,28 @@ class ServiceCommunity extends React.Component {
     callback(key) {
         this.setState({
             key:key
-
         })
+    }
+    callbackChild(key) {
+        this.setState({
+            keyChild:key
+        })
+    }
+    initIndex(){
+        const { search } = this.props.location;
+        const paramsString = search.substring(1);
+        if(paramsString){
+            const searchParams = new URLSearchParams(paramsString);
+            const index = searchParams.get('key');
+            const indexChild = searchParams.get('keyChild');
+            if(index){
+                this.setState({key: index})
+            }
+            if(indexChild){
+                this.setState({keyChild: indexChild})
+            }
+
+        }
     }
     getList(page,pageSize){
         this.pageInit(page,pageSize)
@@ -91,7 +115,7 @@ class ServiceCommunity extends React.Component {
                     <Tabs activeKey={this.state.key} onChange={this.callback}>
                         <TabPane tab="商场" key="1">
                             <div className="tap tap3">
-                                <Tabs activeKey="2">
+                                <Tabs activeKey={this.state.keyChild} onChange={this.callbackChild}>
                                     <TabPane tab="工具" key="1">
                                         <div className="tap">
 
@@ -133,7 +157,7 @@ class ServiceCommunity extends React.Component {
                                     </TabPane>
                                     <TabPane tab="插件" key="3">
                                         <div className="tap">
-
+                                            建设中...
                                         </div>
                                     </TabPane>
                                     <TabPane tab="客户端" key="4">

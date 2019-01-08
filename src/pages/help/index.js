@@ -29,7 +29,6 @@ class Help extends React.Component {
         this.initIndex()
     }
     initIndex(){
-
         const { search } = this.props.location;
         const paramsString = search.substring(1);
         if(paramsString){

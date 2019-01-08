@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {switch_menuShowBool,switchIndex} from '../../redux/action/index'
 import rightImg from '../../assets/img/pipenetwork_banner.png';
 import yins from '../../assets/img/yins.png';
+import {Link} from 'react-router-dom'
 class PipeNetwork extends React.Component {
     componentDidMount() {
         this.props.menuShowBool({
@@ -20,7 +21,7 @@ class PipeNetwork extends React.Component {
                         <div  className="left">
                             <h2>供热管网水力分析计算软件</h2>
                             <p>供热管网水力分析计算软件是一款集设计、校核、在线仿真为一 体的专业计算软件</p>
-                            <a href="javascript:;">了解相关产品</a>
+                            <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=1"}} >了解相关产品</Link>
                         </div>
                         <div className="right">
                             <img src={rightImg} alt=""/>

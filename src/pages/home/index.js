@@ -99,7 +99,6 @@ class Home extends React.Component {
 
     }
     componentDidMount() {
-        console.log(this.props.history);
         window.scrollTo(0, 0);
         this.props.menuShowBool({
             'isShow': 'none',
@@ -158,7 +157,7 @@ class Home extends React.Component {
                             <li data-index="3" className="li">
                                 服务工具
                                 <ul className="menu">
-                                    <a   to="/">供热管网水力计算分析软件</a>
+                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=1"}} >供热管网水力计算分析软件</Link>
                                     <a   href={zzBaseUrl} target="frameZz">枝状管网水力平衡计算软件</a>
                                     <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
@@ -170,8 +169,8 @@ class Home extends React.Component {
                                     <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
                                     <Link   to="/serviceTeam">暖虎服务队</Link>
                                     <Link   to="/accountManagement">跨平台多业务账号管理</Link>
-                                    <a   to="/">物联网设备的热力数据托管服务<span>&lt;建设中&gt;</span></a>
-                                    <a   to="/">企业级监管平台的热力数据托管服务<span>&lt;敬请期待&gt;</span></a>
+                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=2"}} >物联网设备的热力数据托管服务</Link>
+                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=2"}} >企业级监管平台的热力数据托管服务</Link>
                                 </ul>
                             </li>
                             <Link to="/help" data-index="5" className="li bz">帮助中心</Link>
