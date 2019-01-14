@@ -77,7 +77,7 @@ class Platforms extends React.Component {
                         <div className="text text2">平台可进行温度查询和分析统计，主要采用报表方式展示，辅助棒图、饼图、曲线等工具，并利用GIS地图直观反映不同区域的供热质量，便于用户全面掌握供暖情况。可作为政府监管辖区内供热质量、提高供热企业运行管理水平重要工具。
                         </div>
                         <img className="img img02" src={tools02} alt=""/>
-                        <a  className="to_details_l">立即了解</a>
+                        <Link to="/temperatureCollection" className="to_details_l">立即了解</Link>
                     </div>
                 </div>
                 <div className="m_q_2" id="box3">

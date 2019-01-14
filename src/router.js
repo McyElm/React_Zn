@@ -20,6 +20,7 @@ import Platforms from './pages/platforms';
 import Programmes from './pages/programmes';
 import ServiceCommunity from './pages/servicecommunity';
 import InformationDetails from './pages/Informationdetails';
+import TemperatureCollection from './pages/temperaturecollection';
 export default class ERouter extends React.Component{
     render(){
         return (
@@ -46,6 +47,7 @@ export default class ERouter extends React.Component{
                                     <Route path="/platforms" component={Platforms} />
                                     <Route path="/programmes" component={Programmes} />
                                     <Route path="/serviceCommunity" component={ServiceCommunity} />
+                                    <Route path="/temperatureCollection" component={TemperatureCollection} />
                                     <Route path="/informationDetails/:DetailsId" component={InformationDetails} />
                                     <Redirect to="/home" />
                                 </Switch>

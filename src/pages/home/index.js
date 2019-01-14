@@ -157,7 +157,7 @@ class Home extends React.Component {
                             <li data-index="3" className="li">
                                 服务工具
                                 <ul className="menu">
-                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=1"}} >供热管网水力计算分析软件</Link>
+                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=4"}} >供热管网水力计算分析软件</Link>
                                     <a   href={zzBaseUrl} target="frameZz">枝状管网水力平衡计算软件</a>
                                     <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
@@ -362,7 +362,7 @@ class Home extends React.Component {
                                     <div className="">
                                         室温采集分析平台
                                     </div>
-                                    <a  className="swiper-slide-a">了解详情</a>
+                                    <Link to="/temperatureCollection"  className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-3">
@@ -389,7 +389,7 @@ class Home extends React.Component {
                                     <div className="">
                                         室温采集分析平台
                                     </div>
-                                    <a  className="swiper-slide-a">了解详情</a>
+                                    <Link to="/temperatureCollection"  className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-3">

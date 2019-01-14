@@ -132,12 +132,12 @@ export default class SignUp extends React.Component {
         let secondsToGo = 5;
         const modal = Modal.success({
             title: '注册成功',
-            content: `请等待管理员审核。${secondsToGo}秒后返回首页`,
+            content: `请到账号平台进行认证。${secondsToGo}秒后返回首页`,
         });
         const timer = setInterval(() => {
             secondsToGo -= 1;
             modal.update({
-                content: `请等待管理员审核。 (${secondsToGo})秒后返回首页`,
+                content: `请到账号平台进行认证。 (${secondsToGo})秒后返回首页`,
             });
         }, 1000);
         setTimeout(() => {

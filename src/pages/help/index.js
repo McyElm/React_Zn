@@ -8,6 +8,7 @@ import conn from '../../assets/img/conn.png';
 import ewm from '../../assets/img/ewm.png';
 import utils from '../../utils/utils'
 import {Tabs,Modal} from 'antd';
+const confirm = Modal.confirm;
 const TabPane = Tabs.TabPane;
 class Help extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class Help extends React.Component {
         this.inputFocus = this.inputFocus.bind(this)
         this.initIndex = this.initIndex.bind(this)
         this.callback = this.callback.bind(this)
+        this.download = this.download.bind(this)
 
     }
 
@@ -27,6 +29,24 @@ class Help extends React.Component {
         this.props.menuInit("5");
         window.scrollTo(0, 0);
         this.initIndex()
+    }
+    download(url){
+        var that=this;
+        if(this.props.userInfo.isLogIn!==false){
+            window.open(url)
+        }else{
+            confirm({
+                title: '暖虎云平台',
+                content: '请您登录暖虎云平台后下载',
+                okText: '登录',
+                cancelText: '取消',
+                onOk() {
+                    that.props.history.push("/signIn")
+                },
+                onCancel() {
+                },
+            });
+        }
     }
     initIndex(){
         const { search } = this.props.location;
@@ -43,7 +63,8 @@ class Help extends React.Component {
         znQq:"",
         znTextArea:"",
         errorInfo:"",
-        key:'1'
+        key:'1',
+
     }
     submit(){
         if (utils.trim(this.state.znTextArea) =='') {
@@ -95,20 +116,16 @@ class Help extends React.Component {
                             <div className="tap">
                                 <div className="tab_item">
                                     <h4>暖虎云平台</h4>
-                                    <a>暖虎云平台使用说明</a>
                                 </div>
                                 <div className="tab_item">
                                     <h4>服务工具</h4>
-                                    <a>供热管网水力分析计算软件使用说明</a>
-                                    <a>枝状管网水力平衡计算软件使用说明</a>
-                                    <a>供热系统校核、设计、仿真软件使用说明</a>
-                                    <a>热力站设备测评软件使用说明</a>
                                 </div>
                                 <div className="tab_item">
                                     <h4>应用平台</h4>
-                                    <a>智能调节阀管理平台使用说明</a>
-                                    <a>室温采集分析平台使用说明</a>
-                                    <a>智能供热iSCADA平台使用说明</a>
+                                    <div className="a" onClick={()=>{this.download("/pipeNetwork/账号管理平台用户操作手册V_2.1.pdf")}}>账号管理平台用户操作手册</div>
+                                    <div className="a" onClick={()=>{this.download("/pipeNetwork/智能调节阀管理系统APP端用户操作手册_V1.1 _1113.pdf")}}>智能调节阀管理系统APP端用户操作手册</div>
+                                    <div className="a" onClick={()=>{this.download("/pipeNetwork/智能调节阀管理系统用户操作手册_V1.1 _1109.pdf")}}>智能调节阀管理系统用户操作手册</div>
+                                    <div className="a" onClick={()=>{this.download("/pipeNetwork/中能股份热网水力计算分析软件用户操作手册_V1.1 _0828.pdf")}}>中能股份热网水力计算分析软件用户操作手册</div>
                                 </div>
                             </div>
                         </TabPane>
@@ -176,7 +193,9 @@ class Help extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    return {}
+    return {
+        userInfo:state.userInfo
+    }
 }
 const mapDispatchToProps = dispatch => {
     return {
