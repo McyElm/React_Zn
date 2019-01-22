@@ -41,6 +41,7 @@ class ServiceCommunity extends React.Component {
         this.getList(this.state.current,this.state.pageSize)
         this.initIndex()
     }
+
     componentWillReceiveProps(nextProps) {
         const { search } = nextProps.location;
         const paramsString = search.substring(1);

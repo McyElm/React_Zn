@@ -93,7 +93,7 @@ class Home extends React.Component {
                 document.body.removeChild(form);
             },
             onCancel() {
-                console.log('Cancel');
+
             },
         });
 

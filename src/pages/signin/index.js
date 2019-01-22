@@ -106,9 +106,9 @@ class SignIn extends React.Component {
                     isShowLoading: false,
                     params: {
                         uid: this.state.guid,
-                        userName: this.state.znUserNames,
-                        Pwd: this.state.znPassWords,
-                        code_input: this.state.znCodes.toLocaleLowerCase(),
+                        userName: utils.trim(this.state.znUserNames),
+                        Pwd:this.state.znPassWords,
+                        code_input: utils.trim(this.state.znCodes.toLocaleLowerCase()),
                     }
                 }
             }).then((res) => {
@@ -128,7 +128,7 @@ class SignIn extends React.Component {
                         const input = document.createElement('input');
                         input.type = 'hidden';
                         input.name = key;
-                        input.value = this.state[key];
+                        input.value = utils.trim(this.state[key]);
                         form.appendChild(input);
                     }
                 }
