@@ -128,7 +128,7 @@ class SignIn extends React.Component {
                         const input = document.createElement('input');
                         input.type = 'hidden';
                         input.name = key;
-                        input.value = utils.trim(this.state[key]);
+                        input.value = this.state[key];
                         form.appendChild(input);
                     }
                 }
@@ -244,7 +244,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         userInfoFn: function (obj) {
-            console.log(obj);
             dispatch(switch_userInfo(obj));
 
         }

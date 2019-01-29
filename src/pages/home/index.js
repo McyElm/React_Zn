@@ -320,7 +320,7 @@ class Home extends React.Component {
                             详情/应用
                         </div>
                         <div className="t">
-                            枝状管网水利平衡计算软件
+                            枝状管网水力平衡计算软件
                         </div>
                     </div>
                     <div className="f_j_i">
