@@ -6,12 +6,6 @@ import {connect} from 'react-redux'
 import {withRouter} from "react-router-dom";
 import {switch_userInfo} from './redux/action/index'
 class Admin extends React.Component{
-    componentDidUpdate(prevProps) {//社区资讯返回时 tab切换到第四个标签
-        var bool=prevProps.location.pathname.indexOf("/informationDetails_t/")>-1;
-        if(bool&&this.props.location.pathname=="/serviceCommunity"){
-            this.props.history.push("/serviceCommunity?key=4");
-        }
-    }
     render(){
         return (
             <div className="main_wrap">

@@ -41,7 +41,6 @@ class ServiceCommunity extends React.Component {
         this.getList(this.state.current,this.state.pageSize)
         this.initIndex()
     }
-
     componentWillReceiveProps(nextProps) {
         const { search } = nextProps.location;
         const paramsString = search.substring(1);
@@ -294,7 +293,7 @@ class ServiceCommunity extends React.Component {
                                                <p className="title">{item.MessageTitle}</p>
                                                <div className="text">{this.textEllipsis(item.MessageContent)}</div>
                                                <div className="con">
-                                                   <Link className="a" to={{pathname:'/informationDetails_t/'+item.ID}} >详细内容</Link>
+                                                   <Link className="a" to={{pathname:'/informationDetails/'+item.ID}} target="_blank">详细内容</Link>
                                                    <span className="date">{utils.formateDate(item.ModifiedTime)}</span>
                                                </div>
                                            </div>

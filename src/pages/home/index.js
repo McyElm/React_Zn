@@ -8,10 +8,10 @@ import nh_ypt from '../../assets/img/nh_ypt.png';
 import ljnw from '../../assets/img/ljnw.png';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {signBaseUrl,localBaseUrl,zhBaseUrl,znBaseUrl,zzBaseUrl}  from '../../config/Config'
+import {signBaseUrl, localBaseUrl, zhBaseUrl, znBaseUrl, zzBaseUrl}  from '../../config/Config'
 import utils from '../../utils/utils'
-import {switch_menuShowBool, switchIndex,switch_userInfo} from '../../redux/action/index'
-import { Modal, Button } from 'antd';
+import {switch_menuShowBool, switchIndex, switch_userInfo} from '../../redux/action/index'
+import {Modal, Button} from 'antd';
 const confirm = Modal.confirm;
 class Home extends React.Component {
     constructor(props) {
@@ -20,30 +20,30 @@ class Home extends React.Component {
         this.LogOut = this.LogOut.bind(this);
         this.getList = this.getList.bind(this);
         this.state = {
-            item: [
-
-            ]
+            item: []
         }
     }
-    getList(){
+
+    getList() {
         Axios.ajax({
-            url:signBaseUrl+'/SSOService.asmx/GetArticleList',
-            type:'post',
-            data:{
-                isShowLoading:false,
+            url: signBaseUrl + '/SSOService.asmx/GetArticleList',
+            type: 'post',
+            data: {
+                isShowLoading: false,
                 params: {
-                    page:1,
+                    page: 1,
                     limit: 10
                 }
             }
-        }).then((res)=>{
+        }).then((res) => {
             this.setState({
-                item:res.Data.ds
+                item: res.Data.ds
             })
-        }).catch((res)=>{
+        }).catch((res) => {
 
         })
     }
+
     handleScroll() {
         var top = document.documentElement.scrollTop || document.body.scrollTop;
         if (top > 0) {
@@ -56,8 +56,19 @@ class Home extends React.Component {
             })
         }
     }
-    LogOut(){
-        var that=this;
+
+    getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+
+    LogOut() {
+        var that = this;
         confirm({
             title: '暖虎云平台',
             content: '您确定要退出吗？',
@@ -67,8 +78,8 @@ class Home extends React.Component {
             onOk() {
                 sessionStorage.removeItem('userInfo');
                 that.props.LogOutProps({
-                    isLogIn:false,
-                    UserName:''
+                    isLogIn: false,
+                    UserName: ''
                 })
                 const form = document.createElement('form');
                 form.id = 'form-file-download';
@@ -83,12 +94,12 @@ class Home extends React.Component {
                 const input2 = document.createElement('input');
                 input2.type = 'hidden';
                 input2.name = 'znUrl';
-                input2.value = "http://"+window.location.host+"/#/home";
+                input2.value = "http://" + window.location.host + "/#/home";
                 form.appendChild(input2);
                 // form 的提交方式
                 form.method = 'POST';
                 // form 提交路径
-                form.action =localBaseUrl+'/ClearCookie.aspx';
+                form.action = localBaseUrl + '/ClearCookie.aspx';
                 form.submit();
                 document.body.removeChild(form);
             },
@@ -99,7 +110,7 @@ class Home extends React.Component {
 
     }
     componentDidMount() {
-        window.scrollTo(0, 0);
+        window.scrollTo(0, sessionStorage.getItem("ScrollTop")||0);
         this.props.menuShowBool({
             'isShow': 'none',
         });
@@ -109,7 +120,7 @@ class Home extends React.Component {
             slidesPerView: 3,
             centeredSlides: true,
             loopAdditionalSlides: 3,
-            preventLinks : false,
+            preventLinks: false,
             tdFlow: {
                 rotate: 0,
                 depth: 110,
@@ -130,6 +141,7 @@ class Home extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
+        sessionStorage.setItem("ScrollTop",this.getScrollTop())
     }
 
     render() {
@@ -149,41 +161,44 @@ class Home extends React.Component {
                             <li data-index="2" className="li">
                                 应用平台
                                 <ul className="menu">
-                                    <a   href={znBaseUrl} target="frameZn">智能调节阀管理平台</a>
-                                    <a   to="/">室温采集分析平台 <span>&lt;建设中 &gt;</span></a>
-                                    <a   to="/">智能供热iSCADA平台<span>&lt;敬请期待 &gt;</span></a>
+                                    <a href={znBaseUrl} target="frameZn">智能调节阀管理平台</a>
+                                    <a to="/">室温采集分析平台 <span>&lt;建设中 &gt;</span></a>
+                                    <a to="/">智能供热iSCADA平台<span>&lt;敬请期待 &gt;</span></a>
                                 </ul>
                             </li>
                             <li data-index="3" className="li">
                                 服务工具
                                 <ul className="menu">
-                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=4"}} >供热管网水力计算分析软件</Link>
-                                    <a   href={zzBaseUrl} target="frameZz">枝状管网水力平衡计算软件</a>
-                                    <a   to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
-                                    <a   to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
+                                    <Link to={{
+                                        pathname: "serviceCommunity",
+                                        search: "?key=1&keyChild=4"
+                                    }}>供热管网水力计算分析软件</Link>
+                                    <a href={zzBaseUrl} target="frameZz">枝状管网水力平衡计算软件</a>
+                                    <a to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
+                                    <a to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
                             </li>
                             <li data-index="4" className="li ">
                                 解决方案
                                 <ul className="menu">
-                                    <Link   to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
-                                    <Link   to="/serviceTeam">暖虎服务队</Link>
-                                    <Link   to="/accountManagement">跨平台多业务账号管理</Link>
-                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=2"}} >物联网设备的热力数据托管服务</Link>
-                                    <Link to={{pathname:"serviceCommunity",search:"?key=1&keyChild=2"}} >企业级监管平台的热力数据托管服务</Link>
+                                    <Link to="/solutionEnergyEfficiency">集中供热能效提升解决方案</Link>
+                                    <Link to="/serviceTeam">暖虎服务队</Link>
+                                    <Link to="/accountManagement">跨平台多业务账号管理</Link>
+                                    <Link to={{pathname: "serviceCommunity", search: "?key=1&keyChild=2"}}>物联网设备的热力数据托管服务</Link>
+                                    <Link to={{pathname: "serviceCommunity", search: "?key=1&keyChild=2"}}>企业级监管平台的热力数据托管服务</Link>
                                 </ul>
                             </li>
                             <Link to="/help" data-index="5" className="li bz">帮助中心</Link>
                         </ul>
                         {
-                            this.props.userInfo.isLogIn==false?(<div className="d_right">
+                            this.props.userInfo.isLogIn == false ? (<div className="d_right">
                                     <Link className="li zc" to="/signUp">
                                         免费注册
                                     </Link>
                                     <Link className="li dl" to="/signIn">
                                         登录
                                     </Link>
-                                </div>):( <div className="d_right">
+                                </div>) : ( <div className="d_right">
                                     <div className="li dl" onClick={this.LogOut}>
                                         退出
                                     </div>
@@ -226,7 +241,7 @@ class Home extends React.Component {
                         <div className="content">
                             “3133”智能热网企业级产品平台
                         </div>
-                        <Link className="x_q"  to="/solutionEnergyEfficiency">查看详情</Link>
+                        <Link className="x_q" to="/solutionEnergyEfficiency">查看详情</Link>
                     </div>
                     <div className="j_f_i">
                         <div className="j_f_i_head2_n">
@@ -362,7 +377,7 @@ class Home extends React.Component {
                                     <div className="">
                                         室温采集分析平台
                                     </div>
-                                    <Link to="/temperatureCollection"  className="swiper-slide-a">了解详情</Link>
+                                    <Link to="/temperatureCollection" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-3">
@@ -389,7 +404,7 @@ class Home extends React.Component {
                                     <div className="">
                                         室温采集分析平台
                                     </div>
-                                    <Link to="/temperatureCollection"  className="swiper-slide-a">了解详情</Link>
+                                    <Link to="/temperatureCollection" className="swiper-slide-a">了解详情</Link>
                                 </div>
                             </div>
                             <div className="swiper-slide swiper-slide-3">
@@ -429,7 +444,8 @@ class Home extends React.Component {
                             {
                                 this.state.item.map(function (item, index) {
                                     if (index < 8) {
-                                        return <Link className="li" to={{pathname:'/informationDetails/'+item.ID}} key={index}>{index+1}&nbsp;&nbsp;&nbsp;&nbsp;{item.MessageTitle}&nbsp;&nbsp;&nbsp;&nbsp;{utils.formateDate(item.ModifiedTime)}</Link>
+                                        return <Link className="li" target="_blank" to={{pathname: '/informationDetails/' + item.ID}}
+                                                     key={index}>{index + 1}&nbsp;&nbsp;&nbsp;&nbsp;{item.MessageTitle}&nbsp;&nbsp;&nbsp;&nbsp;{utils.formateDate(item.ModifiedTime)}</Link>
                                     }
 
                                 })
@@ -447,7 +463,7 @@ class Home extends React.Component {
 }
 const mapStateToProps = state => {
     return {
-        userInfo:state.userInfo
+        userInfo: state.userInfo
     }
 }
 const mapDispatchToProps = dispatch => {

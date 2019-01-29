@@ -49,7 +49,6 @@ export default class ERouter extends React.Component{
                                     <Route path="/serviceCommunity" component={ServiceCommunity} />
                                     <Route path="/temperatureCollection" component={TemperatureCollection} />
                                     <Route path="/informationDetails/:DetailsId" component={InformationDetails} />
-                                    <Route path="/informationDetails_t/:DetailsId" component={InformationDetails} />
                                     <Redirect to="/home" />
                                 </Switch>
                             </Admin>         
