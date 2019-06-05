@@ -8,7 +8,7 @@ import nh_ypt from '../../assets/img/nh_ypt.png';
 import ljnw from '../../assets/img/ljnw.png';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {signBaseUrl, localBaseUrl, zhBaseUrl, znBaseUrl, zzBaseUrl}  from '../../config/Config'
+import {signBaseUrl, localBaseUrl, zhBaseUrl, znBaseUrl, zzBaseUrl,bjBaseUrl}  from '../../config/Config'
 import utils from '../../utils/utils'
 import {switch_menuShowBool, switchIndex, switch_userInfo} from '../../redux/action/index'
 import {Modal, Button} from 'antd';
@@ -174,6 +174,7 @@ class Home extends React.Component {
                                         search: "?key=1&keyChild=4"
                                     }}>供热管网水力计算分析软件</Link>
                                     <a href={zzBaseUrl} target="frameZz">枝状管网水力平衡计算软件</a>
+                                    <a   href={bjBaseUrl} target="frameBj">供热产品报价系统</a>
                                     <a to="/">供热系统校核、设计、仿真软件<span>&lt;敬请期待&gt;</span></a>
                                     <a to="/">热力站设备测评软件<span>&lt;敬请期待&gt;</span></a>
                                 </ul>
